@@ -25,64 +25,138 @@ deleção de qualquer entidade do banco de dados.
     
         <div class="container">    
             
-            <!-- significa margin-top 4-->
-            <div class="row mt-4">
-                <div class="col">
-                    <h3 class="text-primary">Gerenciamento de Avaliadores</h3>
+            <!--
+                *********************BOTÃO COLLAPSE AVALIADORES*************************
+                Quando o usuário clicar neste botão, serão exibidas as opções de
+                cadastro, edição e deleção, por meio de uma listagem em forma de tabela. 
+                ************************************************************************
+            -->
+            <button data-toggle="collapse" data-target="#collapseAvaliadores" class="btn btn-success btn-block">Avaliadores</button>
+
+            <div id="collapseAvaliadores" class="collapse">
+
+                <!-- significa margin-top 4-->
+                <div class="row mt-4">
+                    <div class="col">
+                        <h3 class="text-primary">Gerenciamento de Avaliadores</h3>
+                    </div>
+                    <div class="col text-right">
+                        <!-- BOTÃO CADASTRAR AVALIADOR-->
+                        <button class="btn btn-primary" type="button"  data-toggle="modal" data-target="#modalAvaliadores">
+                            Novo Avaliador
+                        </button>
+                    </div>
                 </div>
-                <div class="col text-right">
-                    <button class="btn btn-primary" type="button"  data-toggle="modal" data-target="#modalAvaliadores">
-                        Novo Avaliador
-                    </button>
-                </div>
+
             </div>
 
-            <div class="row mt-4">
-                <div class="col">
-                    <h3 class="text-primary">Gerenciamento de Escritores</h3>
-                </div>
-                <div class="col text-right">
-                    <button class="btn btn-primary" type="button">
-                        Novo Escritor (nf)
-                    </button>
-                </div>
-            </div>
+            <br>
 
+            <!--
+                *********************BOTÃO COLLAPSE ESCRITORES**************************
+                Quando o usuário clicar neste botão, serão exibidas as opções de
+                cadastro, edição e deleção, por meio de uma listagem em forma de tabela. 
+                ************************************************************************
+            -->
             
-            <div class="row mt-4">
-                <div class="col">
-                    <h3 class="text-primary">Gerenciamento de Redações</h3>
+            <button data-toggle="collapse" data-target="#collapseEscritores" class="btn btn-success btn-block">Escritores</button>
+            
+            <div id="collapseEscritores" class="collapse">
+                <div class="row mt-4">
+                    <div class="col">
+                        <h3 class="text-primary">Gerenciamento de Escritores</h3>
+                    </div>
+                    <div class="col text-right">
+                        <!-- BOTÃO CADASTRAR ESCRITOR-->
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalEscritores">
+                            Novo Escritor 
+                        </button>
+                    </div>
                 </div>
-                <div class="col text-right">
-                    <button class="btn btn-primary" type="button">
-                        Nova Redação (nf)
-                    </button>
-                </div>
+
             </div>
 
-            
-            <div class="row mt-4">
-                <div class="col">
-                    <h3 class="text-primary">Gerenciamento de Comentários</h3>
+            <br>
+
+            <!--
+                *********************BOTÃO COLLAPSE RESUMOS**************************
+                Quando o usuário clicar neste botão, serão exibidas as opções de
+                cadastro, edição e deleção, por meio de uma listagem em forma de tabela. 
+                ************************************************************************
+            -->
+
+            <button data-toggle="collapse" data-target="#collapseResumos" class="btn btn-success btn-block">Resumos</button>
+
+            <div id="collapseResumos" class="collapse">
+
+                <div class="row mt-4">
+                    <div class="col">
+                        <h3 class="text-primary">Gerenciamento de Redações</h3>
+                    </div>
+                    <div class="col text-right">
+                        <!-- BOTÃO CADASTRAR RESUMO-->
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalResumos">
+                            Nova Redação 
+                        </button>
+                    </div>
                 </div>
-                <div class="col text-right">
-                    <button class="btn btn-primary" type="button">
-                        Novo Comentário (nf)
-                    </button>
-                </div>
+
             </div>
 
-            
+            <br>
+
+            <!--
+                *********************BOTÃO COLLAPSE COMENTÁRIOS**************************
+                Quando o usuário clicar neste botão, serão exibidas as opções de
+                cadastro, edição e deleção, por meio de uma listagem em forma de tabela.
+                ************************************************************************
+            -->
+
+            <button data-toggle="collapse" data-target="#collapseComentarios" class="btn btn-success btn-block">Comentários</button>
+
+            <div id="collapseComentarios" class="collapse">
+
+                <div class="row mt-4">
+                    <div class="col">
+                        <h3 class="text-primary">Gerenciamento de Comentários</h3>
+                    </div>
+                    <div class="col text-right">
+                        <!-- BOTÃO CADASTRAR COMENTÁRIO-->
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalComentarios">
+                            Novo Comentário
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <br>
+
+
+            <!--
+                ************* MODAIS DE CADASTRO E EDIÇÃO *****************
+                
+                Na tag header seguinte, estão as janelas modais com formulários para
+                cadastro e edição das entidades.
+                Cada modal tem formulário com ação que interage com o back-end.
+                
+                ***********************************************************
+            --->
+
+
             <header>
-                <!-- MODAL PARA CADASTRO DE AVALIADORES -->
+                <!-- 
+                    MODAL PARA FORMULÁRIO DE AVALIADORES 
+                -->
                 <div class="modal fade" id="modalAvaliadores" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         
-                    
-                        <form action="./back-end/cadastro.php" method="POST">
+                        <!--Formulário que será puxado pelo método $_POST e depois tratado
+                        na classe CadastroAvaliador.php-->
+                        <form action="./back-end/avaliador/CadastroAvaliador.php" method="POST">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Cadastrar Avaliadores</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Cadastrar Avaliador</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">×</span>
                                     </button>
@@ -111,15 +185,128 @@ deleção de qualquer entidade do banco de dados.
                     </div>
                 </div>
 
+
+                <!-- 
+                    MODAL PARA FORMULÁRIO DE ESCRITORES 
+                -->
+                <div class="modal fade" id="modalEscritores" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        
+                        <!--Formulário que será puxado pelo método $_POST e depois tratado
+                        na classe CadastroEscritor.php-->
+                        <form action="./back-end/escritor/CadastroEscritor.php" method="POST">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Cadastrar Escritor</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="inputNome">Nome</label>
+                                                <input name="nome" type="name" class="form-control" id="inputNome" aria-describedby="NomeHelp" placeholder="Nome">
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Salvar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 
+                    MODAL COM FORMULÁRIO DE RESUMO
+                -->
+                <div class="modal fade" id="modalResumos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        
+                        <!--Formulário que será puxado pelo método $_POST e depois tratado
+                        na classe CadastroResumo.php-->
+                        <form action="./back-end/resumo/CadastroResumo.php" method="POST">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Cadastrar Resumo</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="modal-body">
+
+                                        <!-- 
+                                            TO DO:
+
+                                            Trazer os dados de verdade a partir de um select na tabela
+                                            escritores.
+                                        -->
+                                        <div class="form-group">
+                                            <label for="exampleInputNome">Nome do Escritor</label>
+                                            <select name="nome" class="form-control">
+                                                <option value="4">Jonatan</option>
+                                                <option value="6">Murilo</option>
+                                                <option value="7">Paulo</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="exampleFormControlFile1">Arquivo</label>
+                                            <input name="arquivo" type="file" class="form-control-file">
+
+                                            <input name="id_user" type="hidden" value="1">
+                                            <input name="teste" value="nova_redacao" type="hidden">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Salvar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+
+
+
+                <!-- 
+                    MODAL PARA FORMULÁRIO DE COMENTÁRIOS 
+                -->
+                <div class="modal fade" id="modalComentarios" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        
+                        <!--Formulário que será puxado pelo método $_POST e depois tratado
+                        na classe CadastroComentario.php-->
+                        <form action="./back-end/escritor/CadastroComentario.php" method="POST">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Cadastrar Comentário</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="modal-body">
+                                            <div class="form-textarea">
+                                                <label for="inputNome">Texto do comentário</label>
+                                                <input name="nome" type="name" class="form-control" id="inputNome" aria-describedby="NomeHelp" placeholder="Comentario">
+                                            </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Salvar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
             </header>
-
-
-
-
-
-
-
-
 
         
 
