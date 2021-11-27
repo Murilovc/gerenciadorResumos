@@ -6,7 +6,7 @@ include "../conexao.php";
     próprio PHP para armazenar as informações
     recebidas pela classe de outro lugar.
     */
-    $nome = $_POST['nome'];
+    $nome = $_POST['nome_avaliador'];
     $telefone = $_POST['telefone'];
     $email = $_POST['email'];
 
