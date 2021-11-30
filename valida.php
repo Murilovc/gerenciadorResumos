@@ -20,6 +20,10 @@ if($btnLogin){
            $row_usuario = mysqli_fetch_assoc($resultado_usuario);
            if(password_verify($senha, $row_usuario ['senha'])){
                 header("Location: administrativo.php");
+                $_SESSION['id'] = $row_usuario  ['id'];
+                $_SESSION['nome'] = $row_usuario  ['nome'];
+                $_SESSION['email'] = $row_usuario  ['email'];
+
            }else{
                $_SESSION['msg'] = "Usuário ou senha inválida";
 
