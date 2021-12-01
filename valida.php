@@ -13,7 +13,7 @@ if($btnLogin){
         // gerar a senha criptografada
        // echo password_hash($senha, PASSWORD_DEFAULT);
        //Pesquisar o usuario no bd
-       $result_usuario = "SELECT id, nome, email, senha FROM usuarios WHERE usuario='$usuario'
+       $result_usuario = "SELECT id, nome, email, senha FROM avaliadores WHERE usuario='$usuario'
        LIMIT 1";
        $resultado_usuario = mysqli_query($conexao, $result_usuario);
        if($resultado_usuario){
