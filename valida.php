@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once("conexao.php");
+include_once("back-end/conexao.php");
 $btnLogin = filter_input(INPUT_POST, 'btnLogin', FILTER_SANITIZE_STRING);
 
 
@@ -15,7 +15,7 @@ if($btnLogin){
        //Pesquisar o usuario no bd
        $result_usuario = "SELECT id, nome, email, senha FROM usuarios WHERE usuario='$usuario'
        LIMIT 1";
-       $resultado_usuario = mysqli_query($conn, $result_usuario);
+       $resultado_usuario = mysqli_query($conexao, $result_usuario);
        if($resultado_usuario){
            $row_usuario = mysqli_fetch_assoc($resultado_usuario);
            if(password_verify($senha, $row_usuario ['senha'])){
@@ -27,7 +27,7 @@ if($btnLogin){
            }else{
                $_SESSION['msg'] = "Usuário ou senha inválida";
 
-                header("Location: login.php");
+                header("Location: index.php");
 
            }
        }
@@ -36,13 +36,13 @@ if($btnLogin){
     }else{
         $_SESSION['msg'] = "Usuário ou senha inválida";
 
-    header("Location: login.php");
+    header("Location: index.php");
     }
 
 }else{
     $_SESSION['msg'] = "Pagina não encontrada";
 
-    header("Location: login.php");
+    header("Location: index.php");
 
 }
 

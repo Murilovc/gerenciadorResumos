@@ -22,21 +22,7 @@
                     <h3 class="text-primary">Avaliador, identifique-se</h3>
                 </div>
                 <div class="col text-left">
-                    <div class="form-group">
-                        <label for="inputNome">Nome</label>
-                        <input name="nome" type="name" class="form-control" id="inputNome" aria-describedby="NomeHelp" placeholder="Nome">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputTelefone">Telefone</label>
-                        <input name="telefone" type="tel" class="form-control" id="inputTelefone" placeholder="(99)123456789">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputEmail">Email</label>
-                        <input name="email" type="email" class="form-control" id="inputEmail" placeholder="joao.silva@exemplo.com">
-                    </div>
-                    
-                    
-
+                    <?php include "login.php"?>
                 </div>
             </div>
 
