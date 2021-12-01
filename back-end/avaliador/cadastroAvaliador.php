@@ -9,6 +9,7 @@ include "../conexao.php";
     $nome = $_POST['nome_avaliador'];
     $telefone = $_POST['telefone'];
     $email = $_POST['email'];
+    $senha = $_POST['senha_avaliador'];
 
     /*Consulta SQL a tebela
     avaliadores.
@@ -21,7 +22,8 @@ include "../conexao.php";
         '$nome',
         '$telefone',
         '$email',
-        now()
+        now(),
+        '$senha'
     )";
 
     $cadastrar_avaliador = mysqli_query($conexao, $query_cadastrar) or die(mysqli_error($conexao));

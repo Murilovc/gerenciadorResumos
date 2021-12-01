@@ -128,6 +128,7 @@ deleção de qualquer entidade do banco de dados.
                                                         <input type="text" name="nome_avaliador" value="<?php echo $retorno_cadastro['nome_avaliador']; ?>" class="form-control">
                                                         <input type="text" name="telefone" value="<?php echo $retorno_cadastro['telefone']; ?>" class="form-control">
                                                         <input type="text" name="email" value="<?php echo $retorno_cadastro['email']; ?>" class="form-control">
+                                                        <input type="text" name="senha_avaliador" value="<?php echo $retorno_cadastro['senha_avaliador']; ?>" class="form-control">
 
                                                         <input type="submit" value="EDITAR" class="btn btn-warning">
 
@@ -370,6 +371,10 @@ deleção de qualquer entidade do banco de dados.
                                             <div class="form-group">
                                                 <label for="inputEmail">Email</label>
                                                 <input name="email" type="email" class="form-control" id="inputEmail" placeholder="joao.silva@exemplo.com">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputSenha">Senha</label>
+                                                <input name="senha_avaliador" type="name" class="form-control" id="inputSenha" placeholder="senha">
                                             </div>
                                     </div>
                                 </div>

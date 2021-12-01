@@ -6,12 +6,14 @@ include '../conexao.php';
     $nome = $_POST['nome_avaliador'];
     $telefone = $_POST['telefone'];
     $email = $_POST['email'];
+    $senha = $_POST['senha_avaliador'];
 
     $query_update =  
     "UPDATE avaliadores SET
         nome_avaliador = '$nome',
         telefone = '$telefone',
-        email = '$email'
+        email = '$email',
+        senha_avaliador = '$senha'
     WHERE   id_avaliador = '$id'
     ";
                 
