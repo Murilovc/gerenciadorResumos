@@ -11,6 +11,8 @@ include "../conexao.php";
     $email = $_POST['email'];
     $senha = $_POST['senha_avaliador'];
 
+    $senha_cripto = password_hash($senha, PASSWORD_DEFAULT);
+
     /*Consulta SQL a tebela
     avaliadores.
     O primeiro valor é passado como
@@ -23,7 +25,7 @@ include "../conexao.php";
         '$telefone',
         '$email',
         now(),
-        '$senha'
+        '$senha_cripto'
     )";
 
     $cadastrar_avaliador = mysqli_query($conexao, $query_cadastrar) or die(mysqli_error($conexao));

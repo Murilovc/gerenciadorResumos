@@ -5,4 +5,4 @@ unset($_SESSION['id'],$_SESSION['nome'], $row_usuario  ['nome'], $_SESSION['emai
 
 
 $_SESSION['msg'] = "Deslogado com sucesso";
-header("Location: login.php");
+header("Location: index.php");

@@ -23,7 +23,7 @@ session_start();
         
         <div class="form-group">
             <label for="inputUsuario">Usuário:</label>
-            <input type="email" name="usuario" class="form-control" id="inputUsuario" placeholder="Digite seu email" ><br><br>
+            <input type="email" name="avaliador" class="form-control" id="inputUsuario" placeholder="Digite seu email" ><br><br>
         </div>
         <div class="form-group">
             <label for="inputSenha">Senha:</label>

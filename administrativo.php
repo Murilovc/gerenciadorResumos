@@ -20,6 +20,8 @@ deleção de qualquer entidade do banco de dados.
     </head>
     
     <body>
+
+
         
         <?php include "back-end/menu.php"?>
     
@@ -128,7 +130,7 @@ deleção de qualquer entidade do banco de dados.
                                                         <input type="text" name="nome_avaliador" value="<?php echo $retorno_cadastro['nome_avaliador']; ?>" class="form-control">
                                                         <input type="text" name="telefone" value="<?php echo $retorno_cadastro['telefone']; ?>" class="form-control">
                                                         <input type="text" name="email" value="<?php echo $retorno_cadastro['email']; ?>" class="form-control">
-                                                        <input type="text" name="senha_avaliador" value="<?php echo $retorno_cadastro['senha_avaliador']; ?>" class="form-control">
+                                                        <input type="text" name="senha_avaliador" value="" class="form-control">
 
                                                         <input type="submit" value="EDITAR" class="btn btn-warning">
 

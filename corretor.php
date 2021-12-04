@@ -12,6 +12,18 @@
     <body>
       
         <?php include "back-end/menu.php"?>
+
+        <?php 
+        session_start();
+        if(!empty($_SESSION['id'])){
+            echo "Olá, ",$_SESSION['nome'].", Bem-vindo! <br>";
+            echo "<a href='sair.php'>Sair</a>";
+        }else{
+            $_SESSION['msg'] = "Realize o login para continuar!";
+        header("Location: login.php");
+        }
+        
+        ?>
         
         <table class="table">
 
