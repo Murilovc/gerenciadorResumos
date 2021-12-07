@@ -29,7 +29,9 @@ deleção de qualquer entidade do banco de dados.
             <!-- significa margin-top 4-->
             <div class="row mt-4">
                 <div class="col">
-                    <h3 class="text-primary">Olá administrador! Selecione uma entidade para começar...</h3>
+                    <h3 class="text-primary">Olá administrador!<br>
+                    Selecione uma entidade para começar...<br><br>
+                    <h3></h3> 
                 </div>
             </div>
         
@@ -127,11 +129,27 @@ deleção de qualquer entidade do banco de dados.
                                                     <form action="back-end/avaliador/EdicaoAvaliador.php" method="post">
                                                         <input type="hidden" name="id_avaliador" value="<?php echo $retorno_cadastro['id_avaliador'];?>">
 
-                                                        <input type="text" name="nome_avaliador" value="<?php echo $retorno_cadastro['nome_avaliador']; ?>" class="form-control">
-                                                        <input type="text" name="telefone" value="<?php echo $retorno_cadastro['telefone']; ?>" class="form-control">
-                                                        <input type="text" name="email" value="<?php echo $retorno_cadastro['email']; ?>" class="form-control">
-                                                        <input type="text" name="senha_avaliador" value="" class="form-control">
+                                                        <div class="form-group">
+                                                            <label for="inputNome">Nome</label>
+                                                            <input type="text" name="nome_avaliador" value="<?php echo $retorno_cadastro['nome_avaliador']; ?>" class="form-control" id="inputNome">
+                                                        </div>
+                                                        
+                                                        <div class="form-group">
+                                                            <label for="inputTelefone">Telefone</label>
+                                                            <input type="text" name="telefone" value="<?php echo $retorno_cadastro['telefone']; ?>" class="form-control" id="inputTelefone">
+                                                        </div>
+                                                        
+                                                        <div class="form-group">
+                                                            <label for="inputEmail">Email</label>
+                                                            <input type="text" name="email" value="<?php echo $retorno_cadastro['email']; ?>" class="form-control" id="inputEmail">
+                                                        </div>
+                                                        
+                                                        <div class="form-group">
+                                                            <label for="inputSenha">Senha</label>
+                                                            <input type="text" name="senha_avaliador" value="" class="form-control" id="inputSenha">
 
+                                                        </div>
+                                                        
                                                         <input type="submit" value="EDITAR" class="btn btn-warning">
 
                                                     </form>
@@ -291,15 +309,136 @@ deleção de qualquer entidade do banco de dados.
 
                 <div class="row mt-4">
                     <div class="col">
-                        <h3 class="text-primary">Gerenciamento de Resumos (cadastro não funcionando)</h3>
+                        <h3 class="text-primary">Gerenciamento de Resumos</h3>
                     </div>
                     <div class="col text-right">
                         <!-- BOTÃO CADASTRAR RESUMO-->
                         <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalResumos">
-                            Novo Resumo (nf)
+                            Novo Resumo
                         </button>
                     </div>
                 </div>
+
+                <!-- TABELA PARA LISTAGEM DOS RESUMOS -->
+
+                <div class="row mt-4">
+                    
+                    <div class="col">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Título</th>
+                                    <th>Ação ver arquivo</th>
+                                    <th>Data</th>
+                                    <th>Ação editar</th>
+                                    <th>Ação apagar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaResumos">
+                                <?php
+
+                                    include "back-end/conexao.php";
+
+                                    //consulta sql para retornar todos
+                                    //os avaliadores
+                                    $query_listar = 
+                                    "SELECT * FROM resumos";
+
+                                    $buscar_escritores = mysqli_query($conexao, $query_listar);
+
+                                    
+                                    //enquanto a lista não chegar no último elemento (nulo)
+                                    while($retorno_cadastro = mysqli_fetch_array($buscar_escritores))
+                                    {
+                                ?>
+                                
+                                <tr>
+                                    <!-- LISTAGEM DOS RESUMOS -->
+                                    <td scope="row"><?php echo $retorno_cadastro['id_resumo'];?></td>
+                                    <td><?php echo $retorno_cadastro['titulo'];?></td>
+                                   
+                                    <td>
+                                        <!-- BOTÃO VER RESUMO -->
+                                        <form action="visualizador.php" method="post">
+                                            <!-- TO DO: pegar o nome do arquivo a ser aberto da tabela resumos-->
+                                            <input type="hidden" name="arquivo" value="Plano de Trabalho_CCET175ESTAGIO - Murilo e Paulo. v3.pdf">
+
+                                            <input type="submit" value="Ver" class="btn btn-primary">
+                                        </form>   
+                                    </td>
+
+                                    <a href="http://visualizador.php" target="_blank">Ver</a>
+                                    
+                                    <td><?php echo $retorno_cadastro['data_cadastro'];?></td>    
+                                    
+                                    <td>
+                                        <!-- BOTÃO EDITAR AVALIADOR -->
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalResumosEdicao<?php echo $retorno_cadastro['id_resumo'];?>">
+                                            Editar
+                                        </button>
+                                    </td>
+                                        
+                                    <td>
+                                        <!-- BOTÃO EXCLUIR AVALIADOR -->
+                                        <form action="back-end/resumo/DelecaoResumo.php" method="post">
+                                            <input type="hidden" name="id_resumo" value="<?php echo $retorno_cadastro['id_resumo'];?>">
+
+                                            <input type="submit" value="Excluir" class="btn btn-danger">
+                                        </form>
+                                    </td>
+                                </tr>
+
+                                <!-- aqui vai a janela modal de edicao -->
+                                <!-- The Modal -->
+                                <div class="modal fade" id="modalEscritoresEdicao<?php echo $retorno_cadastro['id_escritor'];?>">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Editar escritor</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                <form action="back-end/escritor/EdicaoEscritor.php" method="post">
+                                                    <input type="hidden" name="id_escritor" value="<?php echo $retorno_cadastro['id_escritor'];?>">
+
+                                                    <input type="text" name="nome_escritor" value="<?php echo $retorno_cadastro['nome_escritor']; ?>" class="form-control">
+                                                    
+                                                    <input type="submit" value="EDITAR" class="btn btn-warning">
+
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <?php 
+                                    }?>
+                            </tbody>
+                        </table>
+
+                        <hr>
+
+                        
+                    </div>
+                    
+                </div>
+
+
+
+
+
+
+
+
+
+
+
             </div>
 
             <br>
@@ -326,6 +465,110 @@ deleção de qualquer entidade do banco de dados.
                         </button>
                     </div>
                 </div>
+
+                <div class="row mt-4">
+        
+                    <div class="col">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Texto</th>
+                                    <th>Data cadastro</th>
+                                    <th>Avaliador</th>
+                                    <th>Referente ao resumo</th>
+                                    <th>Ação editar</th>
+                                    <th>Ação apagar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tabelaComentarios">
+                                <?php
+
+                                    include "back-end/conexao.php";
+
+                                    //consulta sql para retornar todos
+                                    //os comentarios
+                                    $query_listar = 
+                                    "SELECT * FROM comentarios";
+
+                                    $buscar_comentarios = mysqli_query($conexao, $query_listar);
+
+                                    
+                                    //enquanto a lista não chegar no último elemento (nulo)
+                                    while($retorno_cadastro = mysqli_fetch_array($buscar_comentarios))
+                                    {
+                                ?>
+                                <tr>
+                                    <td scope="row"><?php echo $retorno_cadastro['id'];?></td>
+                                    <td><?php echo $retorno_cadastro['texto'];?></td>
+                                    <td><?php echo $retorno_cadastro['data'];?></td>
+                                    <td><?php echo $retorno_cadastro['fk_id_avaliador'];?></td>
+                                    <td><?php echo $retorno_cadastro['fk_id_redacao'];?></td>
+                                        
+                                    <td>
+                                        <!-- BOTÃO EDITAR AVALIADOR -->
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalComentariosEdicao<?php echo $retorno_cadastro['id'];?>">
+                                            Editar
+                                        </button>
+                                    </td>
+                                        
+                                    <td>
+                                        <!-- BOTÃO EXCLUIR AVALIADOR -->
+                                        <form action="back-end/comentario/DelecaoComentario.php" method="post">
+                                            <input type="hidden" name="id" value="<?php echo $retorno_cadastro['id'];?>">
+
+                                            <input type="submit" value="Excluir" class="btn btn-danger">
+                                        </form>
+                                    </td>
+                                </tr>
+
+                                <!-- aqui vai a janela modal de edicao -->
+                                <!-- The Modal -->
+                                <div class="modal fade" id="modalComentariosEdicao<?php echo $retorno_cadastro['id'];?>">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Editar comentário</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                <form action="back-end/comentario/EdicaoComentario.php" method="post">
+                                                    <input type="hidden" name="id" value="<?php echo $retorno_cadastro['id'];?>">
+
+                                                    <input type="text" name="texto" value="<?php echo $retorno_cadastro['texto']; ?>" class="form-control">
+                                                    
+                                                    <input type="submit" value="EDITAR" class="btn btn-warning">
+
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <?php 
+                                    }?>
+                            </tbody>
+                        </table>
+
+                        <hr>
+
+                        
+                    </div>
+                    
+                </div>
+
+
+
+
+
+
+
+
 
             </div>
 
@@ -440,20 +683,41 @@ deleção de qualquer entidade do banco de dados.
                                 <div class="modal-body">
                                     <div class="modal-body">
 
-                                        <!-- 
-                                            TO DO:
+                                        <?php
+                                        $query_listar = 
+                                        "SELECT * FROM escritores";
 
-                                            Trazer os dados de verdade a partir de um select na tabela
-                                            escritores.
-                                        -->
+                                        $buscar_escritores = mysqli_query($conexao, $query_listar);
+
+                                    
+                                        ?>
                                         <div class="form-group">
                                             <label for="exampleInputNome">Nome do Escritor</label>
-                                            <select name="nome" class="form-control">
-                                                <option value="4">Jonatan</option>
-                                                <option value="6">Murilo</option>
-                                                <option value="7">Paulo</option>
+                                            <select name="fk_id_escritor" class="form-control">
+                        
+                                            <?php 
+                                            //enquanto a lista não chegar no último elemento (nulo)
+                                            //INÍCIO DO WHILE
+                                            while($retorno_cadastro = mysqli_fetch_array($buscar_escritores))
+                                            {
+                                            ?>
+                                                <option value="<?php echo $retorno_cadastro['id_escritor']?>"><?php echo $retorno_cadastro['nome_escritor']?></option>
+                                            <?php
+                                            }
+                                            //FIM DO WHILE
+                                            ?>
                                             </select>
+
+
                                         </div>
+
+
+                                        <div class="form-group">
+                                            <label for="exampleInputTitulo">Título</label>
+                                            <input name="titulo" type="name" class="form-control" id="exampleInputTitulo">
+                                        </div>
+
+                                        
 
                                         <div class="form-group">
                                             <label for="exampleFormControlFile1">Arquivo</label>
@@ -494,7 +758,7 @@ deleção de qualquer entidade do banco de dados.
                                 </div>
                                 <div class="modal-body">
                                     <div class="modal-body">
-                                            <div class="form-textarea">
+                                            <div class="form-group">
                                                 <label for="inputNome">Texto do comentário</label>
                                                 <input name="texto" type="name" class="form-control" id="inputNome" aria-describedby="NomeHelp" placeholder="Comentario">
                                             </div>
