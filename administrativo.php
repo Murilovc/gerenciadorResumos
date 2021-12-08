@@ -368,7 +368,7 @@ deleção de qualquer entidade do banco de dados.
                                         </form>   
                                     </td>
 
-                                    <a href="http://visualizador.php" target="_blank">Ver</a>
+                                    <a href="http://localhost/gerenciadorResumos/visualizador.php" target="_blank">Ver</a>
                                     
                                     <td><?php echo $retorno_cadastro['data_cadastro'];?></td>    
                                     
@@ -444,24 +444,24 @@ deleção de qualquer entidade do banco de dados.
             <br>
 
             <!--
-                *********************BOTÃO COLLAPSE COMENTÁRIOS**************************
+                *********************BOTÃO COLLAPSE USUÁRIOS**************************
                 Quando o usuário clicar neste botão, serão exibidas as opções de
                 cadastro, edição e deleção, por meio de uma listagem em forma de tabela.
                 ************************************************************************
             -->
 
-            <button data-toggle="collapse" data-target="#collapseComentarios" class="btn btn-success btn-block">Comentários</button>
+            <button data-toggle="collapse" data-target="#collapseUsuarios" class="btn btn-success btn-block">Usuários do sistema</button>
 
-            <div id="collapseComentarios" class="collapse">
+            <div id="collapseUsuarios" class="collapse">
 
                 <div class="row mt-4">
                     <div class="col">
-                        <h3 class="text-primary">Gerenciamento de Comentários (tabela não implementada ainda)</h3>
+                        <h3 class="text-primary">Gerenciamento de Usuários</h3>
                     </div>
                     <div class="col text-right">
-                        <!-- BOTÃO CADASTRAR COMENTÁRIO-->
-                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalComentarios">
-                            Novo Comentário
+                        <!-- BOTÃO CADASTRAR USUÁRIO-->
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalUsuarios">
+                            Novo Usuário
                         </button>
                     </div>
                 </div>
@@ -473,15 +473,15 @@ deleção de qualquer entidade do banco de dados.
                             <thead>
                                 <tr>
                                     <th>Id</th>
-                                    <th>Texto</th>
+                                    <th>Nome</th>
+                                    <th>Email</th>
+                                    <th>Nível de privilégio</th>
                                     <th>Data cadastro</th>
-                                    <th>Avaliador</th>
-                                    <th>Referente ao resumo</th>
                                     <th>Ação editar</th>
                                     <th>Ação apagar</th>
                                 </tr>
                             </thead>
-                            <tbody id="tabelaComentarios">
+                            <tbody id="tabelaUsuarios">
                                 <?php
 
                                     include "back-end/conexao.php";
@@ -489,33 +489,33 @@ deleção de qualquer entidade do banco de dados.
                                     //consulta sql para retornar todos
                                     //os comentarios
                                     $query_listar = 
-                                    "SELECT * FROM comentarios";
+                                    "SELECT * FROM usuarios";
 
-                                    $buscar_comentarios = mysqli_query($conexao, $query_listar);
+                                    $buscar_usuarios = mysqli_query($conexao, $query_listar);
 
                                     
                                     //enquanto a lista não chegar no último elemento (nulo)
-                                    while($retorno_cadastro = mysqli_fetch_array($buscar_comentarios))
+                                    while($retorno_cadastro = mysqli_fetch_array($buscar_usuarios))
                                     {
                                 ?>
                                 <tr>
-                                    <td scope="row"><?php echo $retorno_cadastro['id'];?></td>
-                                    <td><?php echo $retorno_cadastro['texto'];?></td>
-                                    <td><?php echo $retorno_cadastro['data'];?></td>
-                                    <td><?php echo $retorno_cadastro['fk_id_avaliador'];?></td>
-                                    <td><?php echo $retorno_cadastro['fk_id_redacao'];?></td>
+                                    <td scope="row"><?php echo $retorno_cadastro['id_usuario'];?></td>
+                                    <td><?php echo $retorno_cadastro['nome_usuario'];?></td>
+                                    <td><?php echo $retorno_cadastro['email_usuario'];?></td>
+                                    <td><?php echo $retorno_cadastro['nivel_usuario'];?></td>
+                                    <td><?php echo $retorno_cadastro['data_cadastro'];?></td>             
                                         
                                     <td>
-                                        <!-- BOTÃO EDITAR AVALIADOR -->
-                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalComentariosEdicao<?php echo $retorno_cadastro['id'];?>">
+                                        <!-- BOTÃO EDITAR USUÁRIO -->
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalUsuariosEdicao<?php echo $retorno_cadastro['id_usuario'];?>">
                                             Editar
                                         </button>
                                     </td>
                                         
                                     <td>
-                                        <!-- BOTÃO EXCLUIR AVALIADOR -->
-                                        <form action="back-end/comentario/DelecaoComentario.php" method="post">
-                                            <input type="hidden" name="id" value="<?php echo $retorno_cadastro['id'];?>">
+                                        <!-- BOTÃO EXCLUIR USUÁRIO -->
+                                        <form action="back-end/usuario/DelecaoUsuario.php" method="post">
+                                            <input type="hidden" name="id" value="<?php echo $retorno_cadastro['id_usuario'];?>">
 
                                             <input type="submit" value="Excluir" class="btn btn-danger">
                                         </form>
@@ -524,24 +524,42 @@ deleção de qualquer entidade do banco de dados.
 
                                 <!-- aqui vai a janela modal de edicao -->
                                 <!-- The Modal -->
-                                <div class="modal fade" id="modalComentariosEdicao<?php echo $retorno_cadastro['id'];?>">
+                                <div class="modal fade" id="modalUsuariosEdicao<?php echo $retorno_cadastro['id'];?>">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
 
                                             <!-- Modal Header -->
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Editar comentário</h4>
+                                                <h4 class="modal-title">Editar usuário</h4>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             </div>
 
                                             <!-- Modal body -->
                                             <div class="modal-body">
-                                                <form action="back-end/comentario/EdicaoComentario.php" method="post">
-                                                    <input type="hidden" name="id" value="<?php echo $retorno_cadastro['id'];?>">
-
-                                                    <input type="text" name="texto" value="<?php echo $retorno_cadastro['texto']; ?>" class="form-control">
+                                                <form action="back-end/usuario/EdicaoUsuario.php" method="post">
                                                     
-                                                    <input type="submit" value="EDITAR" class="btn btn-warning">
+                                                    <input type="hidden" name="id_usuario" value="<?php echo $retorno_cadastro['id_usuario'];?>">
+
+                                                    <div class="form-group">
+                                                        <label for="inputNome">Nome</label>
+                                                        <input type="text" name="nome_usuario" value="<?php echo $retorno_cadastro['nome_usuario']; ?>" class="form-control" id="inputNome">
+                                                    </div>
+                                                
+                                                    <div class="form-group">
+                                                        <label for="inputEmail">Email</label>
+                                                        <input type="text" name="email_usuario" value="<?php echo $retorno_cadastro['email_usuario']; ?>" class="form-control" id="inputEmail">
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label for="inputSenha">Senha</label>
+                                                        <input type="text" name="senha_usuario" value="" class="form-control" id="inputSenha">
+
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="inputTelefone">Nível de privilégio</label>
+                                                        <input type="text" name="nivel_usuario" value="<?php echo $retorno_cadastro['nivel_usuario']; ?>" class="form-control" id="inputTelefone">
+                                                    </div>
 
                                                 </form>
                                             </div>
@@ -708,16 +726,12 @@ deleção de qualquer entidade do banco de dados.
                                             ?>
                                             </select>
 
-
                                         </div>
-
 
                                         <div class="form-group">
                                             <label for="exampleInputTitulo">Título</label>
                                             <input name="titulo" type="name" class="form-control" id="exampleInputTitulo">
                                         </div>
-
-                                        
 
                                         <div class="form-group">
                                             <label for="exampleFormControlFile1">Arquivo</label>
@@ -736,33 +750,45 @@ deleção de qualquer entidade do banco de dados.
                     </div>
                 </div>
 
-
-
-
-
                 <!-- 
-                    MODAL PARA FORMULÁRIO DE COMENTÁRIOS 
+                    MODAL PARA FORMULÁRIO DE USUÁRIOS 
                 -->
-                <div class="modal fade" id="modalComentarios" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="modalUsuarios" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         
                         <!--Formulário que será puxado pelo método $_POST e depois tratado
                         na classe CadastroComentario.php-->
-                        <form action="./back-end/comentario/CadastroComentario.php" method="POST">
+                        <form action="./back-end/usuario/CadastroUsuario.php" method="POST">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Cadastrar Comentário</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Cadastrar Usuário</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">×</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="modal-body">
-                                            <div class="form-group">
-                                                <label for="inputNome">Texto do comentário</label>
-                                                <input name="texto" type="name" class="form-control" id="inputNome" aria-describedby="NomeHelp" placeholder="Comentario">
-                                            </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="inputNome">Nome</label>
+                                        <input name="nome_usuario" type="name" class="form-control" id="inputNome" aria-describedby="NomeHelp" placeholder="Nome">
                                     </div>
+                                    <div class="form-group">
+                                        <label for="inputEmail">Email</label>
+                                        <input name="email_usuario" type="email" class="form-control" id="inputEmail" placeholder="joao.silva@exemplo.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputSenha">Senha</label>
+                                        <input name="senha_usuario" type="name" class="form-control" id="inputSenha" placeholder="senha">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputNome">Nível de privilégio</label>
+                                            <select name="nivel_usuario" class="form-control">
+                                                <option value="1">1 (Upload de arquivos)</option>
+                                                <option value="0">0 (Administrador do Banco de Dados)</option>
+                                            </select>
+                                    </div>
+                                    
+                                    
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">Salvar</button>
