@@ -18,7 +18,7 @@ if($btnLogin){
                           WHERE email='$email'
                           LIMIT 1";
 
-       $query_usuario = "SELECT id_usuario, nome_usuario, email_usuario, senha_usuario
+       $query_usuario = "SELECT id_usuario, nome_usuario, email_usuario, senha_usuario, nivel_usuario
                           FROM usuarios
                           WHERE email_usuario='$email'
                           LIMIT 1";
@@ -27,19 +27,13 @@ if($btnLogin){
        
        
         if($resultado_avaliador){
-           $row_usuario = mysqli_fetch_assoc($resultado_avaliador);
-           if(password_verify($senha, $row_usuario ['senha_avaliador'])){
+           $row_avaliador = mysqli_fetch_assoc($resultado_avaliador);
+           if(password_verify($senha, $row_avaliador ['senha_avaliador'])){
                 header("Location: corretor.php");
-                $_SESSION['id'] = $row_usuario  ['id_avaliador'];
-                $_SESSION['nome'] = $row_usuario  ['nome_avaliador'];
-                $_SESSION['email'] = $row_usuario  ['email'];
+                $_SESSION['id'] = $row_avaliador  ['id_avaliador'];
+                $_SESSION['nome'] = $row_avaliador  ['nome_avaliador'];
+                $_SESSION['email'] = $row_avaliador  ['email'];
                 return;
-
-           }else{
-               $_SESSION['msg'] = "Usuário ou senha inválida";
-
-                header("Location: index.php");
-
            }
         }
        
@@ -52,13 +46,13 @@ if($btnLogin){
                 $_SESSION['nome'] = $row_usuario  ['nome_usuario'];
                 $_SESSION['email'] = $row_usuario  ['email_usuario'];
                 
-                $tipo = $row_usuario['nivel_usuario'];
-                if($tipo < 1){
+                $tipo = (int)$row_usuario['nivel_usuario'];
+                if($tipo === 0){
                     header("Location: administrativo.php");
                 } else {
                     header("Location: visualizador.php");
                 }
-                return;
+                
             }else{
                 $_SESSION['msg'] = "Usuário ou senha inválida";
 

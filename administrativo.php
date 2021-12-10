@@ -92,7 +92,20 @@ deleção de qualquer entidade do banco de dados.
                                     <tr>
                                         <td scope="row"><?php echo $retorno_cadastro['id_avaliador'];?></td>
                                         <td><?php echo $retorno_cadastro['nome_avaliador'];?></td>
-                                        <td><?php echo $retorno_cadastro['telefone'];?></td>
+                                        
+                                        <?php 
+                                            include_once "Util.php";
+                                            $tele = (String)$retorno_cadastro['telefone'];
+                                            $utile = new Util();
+                                           
+                                        ?>
+                                        <td>
+                                            <?php 
+
+                                            echo $utile->formatar_telefone($tele, 68);
+                                                
+                                            ?>
+                                        </td>
                                         <td><?php echo $retorno_cadastro['email'];?></td>
                                             
                                         <td>
@@ -429,16 +442,6 @@ deleção de qualquer entidade do banco de dados.
                     
                 </div>
 
-
-
-
-
-
-
-
-
-
-
             </div>
 
             <br>
@@ -701,6 +704,11 @@ deleção de qualquer entidade do banco de dados.
                                 <div class="modal-body">
                                     <div class="modal-body">
 
+                                        <div class="form-group">
+                                            <label for="exampleInputTitulo">Título</label>
+                                            <input name="titulo" type="name" class="form-control" id="exampleInputTitulo">
+                                        </div>
+                                        
                                         <?php
                                         $query_listar = 
                                         "SELECT * FROM escritores";
@@ -728,9 +736,37 @@ deleção de qualquer entidade do banco de dados.
 
                                         </div>
 
+                                        <?php
+                                        $query_listar_avaliadores = 
+                                        "SELECT * FROM avaliadores";
+
+                                        $buscar_avaliadores = mysqli_query($conexao, $query_listar_avaliadores);
+
+                                    
+                                        ?>
                                         <div class="form-group">
-                                            <label for="exampleInputTitulo">Título</label>
-                                            <input name="titulo" type="name" class="form-control" id="exampleInputTitulo">
+                                            <label for="exampleInputNome">Quem deve avaliar este resumo?</label>
+                                            <select name="fk_id_avaliador" class="form-control">
+                        
+                                            <?php 
+                                            //enquanto a lista não chegar no último elemento (nulo)
+                                            //INÍCIO DO WHILE
+                                            while($retorno_cadastro = mysqli_fetch_array($buscar_avaliadores))
+                                            {
+                                            ?>
+                                            <!-- value é o valor que será retornado deste seletor quando o 
+                                            formulário for enviado. -->
+                                            <option value="<?php echo $retorno_cadastro['id_avaliador']?>">
+                                                <!-- Isto é o que será exibido para o usuário selecionar-->
+                                                <?php echo $retorno_cadastro['nome_avaliador']?>
+                                            </option>
+                                            
+                                            <?php
+                                            }
+                                            //FIM DO WHILE
+                                            ?>
+                                            </select>
+
                                         </div>
 
                                         <div class="form-group">
