@@ -7,7 +7,7 @@
     <h1>Resumo</h1>
   
  		   
-    <iframe src="<?php $caminho = $_POST['arquivo']; echo $caminho?>" width="100%" height="500px">
+    <iframe src="https://localhost/images/Lorem_Ipsum.pdf" width="100%" height="500px">
     </iframe>
  
   

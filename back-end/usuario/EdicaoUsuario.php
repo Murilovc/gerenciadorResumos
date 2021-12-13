@@ -2,31 +2,31 @@
 
 include '../conexao.php';
 
-    $id = $_POST['id_avaliador'];
-    $nome = $_POST['nome_avaliador'];
-    $telefone = $_POST['telefone'];
-    $email = $_POST['email'];
-    $senha = $_POST['senha_avaliador'];
+    $id = $_POST['id_usuario'];
+    $nome = $_POST['nome_usuario'];
+    $email = $_POST['email_usuario'];
+    $senha = $_POST['senha_usuario'];
+    $nivel = $_POST['nivel_usuario'];
 
     /*Se a pessoa não escolheu uma nova senha, então a antiga será
     mantida*/
     if($senha == ''){
         $query_update =  
-        "UPDATE avaliadores SET
-            nome_avaliador = '$nome',
-            telefone = '$telefone',
-            email = '$email'
-        WHERE   id_avaliador = '$id'
+        "UPDATE usuarios SET
+            nome_usuario = '$nome',
+            email_usuario = '$email',
+            nivel_usuario = '$nivel'
+        WHERE   id_usuario = '$id'
         ";
     } else{
         $senha_cripto = password_hash($senha, PASSWORD_DEFAULT);
         $query_update =  
-        "UPDATE avaliadores SET
-            nome_avaliador = '$nome',
-            telefone = '$telefone',
-            email = '$email',
-            senha_avaliador = '$senha_cripto'
-        WHERE   id_avaliador = '$id'
+        "UPDATE usuarios SET
+            nome_usuario = '$nome',
+            email_usuario = '$email',
+            senha_usuario = '$senha_cripto',
+            nivel_usuario = '$nivel'
+        WHERE   id_usuario = '$id'
         ";
     }
 

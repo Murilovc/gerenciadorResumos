@@ -15,8 +15,8 @@
 
         <?php 
         session_start();
-        if(!empty($_SESSION['id'])){
-            echo "Olá, ",$_SESSION['nome'].", Bem-vindo! <br>";
+        if(!empty($_SESSION['id']) && $_SESSION['nivel'] == 2){
+            echo "Olá, ",$_SESSION['nome'].", bem-vindo! <br>";
             echo "<a href='sair.php'>Sair</a>";
         }else{
             $_SESSION['msg'] = "Realize o login para continuar!";

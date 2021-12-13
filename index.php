@@ -18,26 +18,12 @@
             
             <!-- significa margin-top 4-->
             <div class="row mt-4">
-                <div class="col">
-                    <h3 class="text-primary">Avaliador, identifique-se</h3>
-                </div>
-                <div class="col text-left">
+                <div class="col text-center">
+                    <h3 class="text-primary">Sistema de Avaliação de Resumos da PROEX</h3>
                     <?php include "login.php"?>
                 </div>
             </div>
 
-            <!-- Isso é simplesmente um link pra área administrativa que tem acesso
-            ao banco de dados, não tem nada a ver com o login e etc. Depois mudaremos
-            essa forma de acesso, está assim apenas para facilitar. -->
-            <div class="row mt-4">
-                <label>Link para a área administrativa (não vai ficar assim na versão final)</label>
-                
-                <br>
-                <div class="row mt-4">
-                    <a class="link" href="administrativo.php">Acessar área administrativa</a>
-                </div>
-                   
-            </div>
             
             <!-- Optional JavaScript -->
             <!-- jQuery first, then Popper.js, then Bootstrap JS -->

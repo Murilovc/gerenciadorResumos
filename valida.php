@@ -29,10 +29,12 @@ if($btnLogin){
         if($resultado_avaliador){
            $row_avaliador = mysqli_fetch_assoc($resultado_avaliador);
            if(password_verify($senha, $row_avaliador ['senha_avaliador'])){
+                //quando a página estiver pronta, redirecionar para selecao_resumo.php
                 header("Location: corretor.php");
                 $_SESSION['id'] = $row_avaliador  ['id_avaliador'];
                 $_SESSION['nome'] = $row_avaliador  ['nome_avaliador'];
                 $_SESSION['email'] = $row_avaliador  ['email'];
+                $_SESSION['nivel'] = 2;
                 return;
            }
         }
@@ -47,10 +49,14 @@ if($btnLogin){
                 $_SESSION['email'] = $row_usuario  ['email_usuario'];
                 
                 $tipo = (int)$row_usuario['nivel_usuario'];
+                //Se for o admin
                 if($tipo === 0){
+                    $_SESSION['nivel'] = $row_usuario['nivel_usuario'];
                     header("Location: administrativo.php");
+                //senão é o assistente de envio de arquivos
                 } else {
-                    header("Location: visualizador.php");
+                    $_SESSION['nivel'] = $row_usuario['nivel_usuario'];
+                    header("Location: envio_arquivo.php");
                 }
                 
             }else{

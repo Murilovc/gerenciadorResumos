@@ -119,7 +119,13 @@ session_start();
 
 		<form method="POST" action="valida.php">
 			<div class="login-form">
-				<div class="avatar"><i class="material-icons">&#xE7FF;</i></div>
+				<!-- outros valores
+				
+				w=138
+				h=200
+				
+				-->
+				<img class="mx-auto d-block" src="logo_ufac.png" width="92" height="133" >
 				<h4 class="modal-title">Acesse sua conta</h4>
 				<div class="form-group">
 					<input type="email" name="email" class="form-control" placeholder="E-mail" required="required">
