@@ -24,49 +24,21 @@
         }
         
         ?>
-        
-        <table class="table">
 
-            <thead>
-                <tr class="text-center">
-
-                    <th scope="col">Redação</th>
-                    <th scope="col">Comentários</th>
-
-                </tr>
-            </thead>
-
-            <tbody>
-
-                <tr class="text-center">
-                    
-                    <td>
-
-                    </td>
+        <div class="col mt-4">
+            
+            <?php include "visualizador.php"?>
+        </div>
+        <div class="col mt-4">
+            <form action="back-end/comentario/CadastroComentario.php" method="POST">
                 
-                    <td>
-                        <form action="./back-end/cadastro.php" method="POST">
-                            
-                            <div class="form-group">
-                                <textarea rows="10" name="comentarios" type="text" class="form-control" placeholder="Comentários">                                                                                                                        </textarea>
-                            </div>
-                            <!-- AINDA NÃO IMPLEMENTADO
-                            <input name="teste" type="hidden" value="comentario">
-                            <input name="id_redacao" type="hidden" value="37">
-                            <input name="id" type="hidden" value="">
-                            <input name="id_user" type="hidden" value="1">
-                            <input name="selecao_escritor" type="hidden" value="7">
-                            -->
-                            <button type="submit" class="btn btn-primary">Salvar comentário</button>
-                        </form>
-                
-                    </td>
-                </tr>
-            </tbody>
+                <div class="form-group">
+                    <textarea rows="7" name="comentarios" type="text" class="form-control" placeholder="Comentários"></textarea>
+                </div>
 
-        </table>
-
-
+                <button type="submit" class="btn btn-primary">Salvar comentário</button>
+            </form>
+        </div>
   
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

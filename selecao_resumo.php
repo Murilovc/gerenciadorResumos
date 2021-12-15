@@ -10,8 +10,11 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     </head>
     <body>
-
         <?php 
+
+        include "back-end/menu.php";
+
+
         session_start();
         if(!empty($_SESSION['id']) && $_SESSION['nivel'] == 2){
             echo "<a href='sair.php'>Sair</a>";
@@ -19,8 +22,67 @@
             $_SESSION['msg'] = "Realize o login para continuar!";
             header("Location: login.php");
         }
+
+        include_once "back-end/conexao.php";
+
         
+        //pegando as informações do avaliador
+        $id_avaliador = $_SESSION['id'];
+
+        $query_avaliador = 
+        "SELECT id_avaliador, nome_avaliador 
+        FROM avaliadores 
+        WHERE id_avaliador='$id_avaliador'
+        ";
+        
+        $busca_avaliador = mysqli_query($conexao, $query_avaliador);
+
+        $avaliador = mysqli_fetch_array($busca_avaliador);
+
+        //pegando as informações dos resumos associados ao avaliador acima
+        $query_resumos =
+        "SELECT id_resumo, titulo, fk_id_escritor, arquivo, fk_id_avaliador
+        FROM resumos
+        WHERE fk_id_avaliador='$id_avaliador'
+        ";
+
+        $busca_resumos = mysqli_query($conexao, $query_resumos);
+
         ?>
+
+        <!-- significa margin-top 4-->
+        <div class="row mt-4">
+            <div class="col text-left">
+                <h3 class="text-primary">Olá <?php echo $avaliador['nome_avaliador']?><br><br></h3>
+                <h3 class="text-primary">Lista de resumos com avaliação atribuída a você<br><br><br><br></h3>
+
+                <table class="table">
+                    <!-- Cabeçalho da tabela-->
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Título</th>
+                            <th>Nome do autor</th>
+                            <th>Nome do arquivo</th>
+                            <th>Ação corrigir</th>
+                        </tr>
+                    </thead>
+                    <!-- Corpo da tabela-->
+                    <tbody id="tabelaSelecaoResumo">
+
+                        <?php 
+                        while($resumos = mysqli_fetch_array($busca_resumos))
+                        {
+                            
+                        }
+                        ?>
+
+                    </tbody>
+                </table>
+                <h3 class="text-primary">Outros resumos</h3>
+            </div>
+        </div>
+
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

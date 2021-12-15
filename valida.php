@@ -30,7 +30,7 @@ if($btnLogin){
            $row_avaliador = mysqli_fetch_assoc($resultado_avaliador);
            if(password_verify($senha, $row_avaliador ['senha_avaliador'])){
                 //quando a página estiver pronta, redirecionar para selecao_resumo.php
-                header("Location: corretor.php");
+                header("Location: selecao_resumo.php");
                 $_SESSION['id'] = $row_avaliador  ['id_avaliador'];
                 $_SESSION['nome'] = $row_avaliador  ['nome_avaliador'];
                 $_SESSION['email'] = $row_avaliador  ['email'];

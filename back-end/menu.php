@@ -11,9 +11,9 @@
                 <li class="nav-item"><span class="fa fa-home fa-2x" aria-hidden="true"></span></li>
                 <li class="nav-item"><a class="nav-link" href="index.php">Início</a></li>
                 <li class="nav-item"><span class="fa fa-upload fa-2x" aria-hidden="true"></span></li>
-                <li class="nav-item"><a class="nav-link" href="corretor.php">Fazer upload</a></li>
+                <li class="nav-item"><a class="nav-link" href="envio_arquivo.php">Fazer upload</a></li>
                 <li class="nav-item"><span class="fa fa-archive fa-2x" aria-hidden="true"></span></li>
-                <li class="nav-item"><a class="nav-link" href="corretor.php">Seleção de resumo</a></li>
+                <li class="nav-item"><a class="nav-link" href="selecao_resumo.php">Seleção de resumo</a></li>
                 <li class="nav-item"><span class= "fa fa-comment fa-2x" aria-hidden="true" aria-hidden="true"></span></li>
                 <li class="nav-item"><a class="nav-link" href="corretor.php">Corretor</a></li>
             </ul>

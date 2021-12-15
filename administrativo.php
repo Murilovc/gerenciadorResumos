@@ -386,11 +386,20 @@ deleção de qualquer entidade do banco de dados.
                                     <td><?php echo $retorno_cadastro['titulo'];?></td>
                                    
                                     <td>
-
-                                        <a href="http://localhost/gerenciadorResumos/visualizador.php/<?php echo $retorno_cadastro['id_resumo'];?>" target="_blank">Ver</a>
-                                        <!-- TO DO: pegar o nome do arquivo a ser aberto da tabela resumos-->
- 
+                                        <!-- BOTÃO VER RESUMO -->
+                                        <form action="visualizador.php" method="post">
+                                            <input type="hidden" name="arquivo" value="Lorem_Ipsum.pdf">
+                                            
+                                            <?php 
+                                            $path = "http://localhost/gerenciadorResumos/visualizador.php";
+                                            $path = $path."/".$retorno_cadastro['id_resumo'];
+                                            ?>
+                                            
+                                            <a href="<?php echo $path?>" target="_blank" rel="noreferrer">Ver</a>
+                                        </form>   
                                     </td>
+
+                                    
                                     
                                     <td><?php echo $retorno_cadastro['data_cadastro'];?></td>    
                                     
