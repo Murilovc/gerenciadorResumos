@@ -4,7 +4,7 @@
     <title>Visualizador de PDF</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -16,7 +16,7 @@
     include_once "back-end/conexao.php";
     
     echo $caminho = $_SERVER['REQUEST_URI'];
-    $id_resumo = substr($caminho, -1, 1);
+    $id_resumo = substr($caminho, -1, 2);
     
     //coletando informações do resumo
     $query_consulta_resumo = 
@@ -42,7 +42,10 @@
     ?>
 
     <div class="row mt-4">
-      <h3 class="text-primary">Resumo escrito por <?php echo $escritor;?></h3>
+      <div class="text-right">
+        <h3 class="text-primary"> Resumo escrito por <?php echo $escritor;?></h3>
+      </div>
+      
     </div>
     <!-- 
       Os dois pontos antes do nome são necessários porque o endereço
@@ -51,7 +54,7 @@
       Por exemplo, supondo que o id passado seja 4, a URL atual seria:
       http://localhost/gerenciadorResumos/visualizador.php/4
     -->
-    <iframe src="../assets/<?php echo $local;?>" width="100%" height="570px">
+    <iframe src="../arquivos/<?php echo $local;?>" width="100%" height="570px">
     </iframe>
  
   

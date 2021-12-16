@@ -69,123 +69,127 @@ deleção de qualquer entidade do banco de dados.
                     </div>
                 </div>
                 <br>
+
+                <input class="form-control" id="pesquisaAvaliadores" type="text" placeholder="Pesquisar...">
+
+                <br>
                 <div class="row mt-4">
         
                     <div class="col">
-                        <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Nome</th>
-                                        <th>Telefone</th>
-                                        <th>Email</th>
-                                        <th>Ação editar</th>
-                                        <th>Ação apagar</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="myTable">
-                                    <?php
+                        <table class="table table-striped">
+                            <thead class="thead thead-dark">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Nome</th>
+                                    <th>Telefone</th>
+                                    <th>Email</th>
+                                    <th>Ação editar</th>
+                                    <th>Ação apagar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="myTable">
+                                <?php
 
-                                        include "back-end/conexao.php";
+                                    include "back-end/conexao.php";
 
-                                        //consulta sql para retornar todos
-                                        //os avaliadores
-                                        $query_listar = 
-                                        "SELECT * FROM avaliadores";
+                                    //consulta sql para retornar todos
+                                    //os avaliadores
+                                    $query_listar = 
+                                    "SELECT * FROM avaliadores";
 
-                                        $buscar_avaliadores = mysqli_query($conexao, $query_listar);
+                                    $buscar_avaliadores = mysqli_query($conexao, $query_listar);
 
+                                    
+                                    //enquanto a lista não chegar no último lemento (nulo)
+                                    while($retorno_cadastro = mysqli_fetch_array($buscar_avaliadores))
+                                    {
+                                ?>
+                                <tr>
+                                    <td scope="row"><?php echo $retorno_cadastro['id_avaliador'];?></td>
+                                    <td><?php echo $retorno_cadastro['nome_avaliador'];?></td>
+                                    
+                                    <?php 
+                                        include_once "back-end/Util.php";
+                                        $tele = (String)$retorno_cadastro['telefone'];
+                                        $utile = new Util();
                                         
-                                        //enquanto a lista não chegar no último lemento (nulo)
-                                        while($retorno_cadastro = mysqli_fetch_array($buscar_avaliadores))
-                                        {
                                     ?>
-                                    <tr>
-                                        <td scope="row"><?php echo $retorno_cadastro['id_avaliador'];?></td>
-                                        <td><?php echo $retorno_cadastro['nome_avaliador'];?></td>
-                                        
+                                    <td>
                                         <?php 
-                                            include_once "back-end/Util.php";
-                                            $tele = (String)$retorno_cadastro['telefone'];
-                                            $utile = new Util();
-                                           
+
+                                        echo $utile->formatar_telefone($tele, 68);
+                                            
                                         ?>
-                                        <td>
-                                            <?php 
+                                    </td>
+                                    <td><?php echo $retorno_cadastro['email'];?></td>
+                                        
+                                    <td>
+                                        <!-- BOTÃO EDITAR AVALIADOR -->
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalAvaliadoresEdicao<?php echo $retorno_cadastro['id_avaliador'];?>">
+                                            Editar
+                                        </button>
+                                    </td>
+                                        
+                                    <td>
+                                        <!-- BOTÃO EXCLUIR AVALIADOR -->
+                                        <form action="back-end/avaliador/DelecaoAvaliador.php" method="post">
+                                            <input type="hidden" name="id_avaliador" value="<?php echo $retorno_cadastro['id_avaliador'];?>">
 
-                                            echo $utile->formatar_telefone($tele, 68);
-                                                
-                                            ?>
-                                        </td>
-                                        <td><?php echo $retorno_cadastro['email'];?></td>
-                                            
-                                        <td>
-                                            <!-- BOTÃO EDITAR AVALIADOR -->
-                                            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalAvaliadoresEdicao<?php echo $retorno_cadastro['id_avaliador'];?>">
-                                                Editar
-                                            </button>
-                                        </td>
-                                            
-                                        <td>
-                                            <!-- BOTÃO EXCLUIR AVALIADOR -->
-                                            <form action="back-end/avaliador/DelecaoAvaliador.php" method="post">
-                                                <input type="hidden" name="id_avaliador" value="<?php echo $retorno_cadastro['id_avaliador'];?>">
+                                            <input type="submit" value="Excluir" class="btn btn-danger">
+                                        </form>
+                                    </td>
+                                </tr>
 
-                                                <input type="submit" value="Excluir" class="btn btn-danger">
-                                            </form>
-                                        </td>
-                                    </tr>
+                                <!-- aqui vai a janela modal de edicao -->
+                                <!-- The Modal -->
+                                <div class="modal fade" id="modalAvaliadoresEdicao<?php echo $retorno_cadastro['id_avaliador'];?>">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
 
-                                    <!-- aqui vai a janela modal de edicao -->
-                                    <!-- The Modal -->
-                                    <div class="modal fade" id="modalAvaliadoresEdicao<?php echo $retorno_cadastro['id_avaliador'];?>">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-
-                                                <!-- Modal Header -->
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Editar avaliador</h4>
-                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                </div>
-
-                                                <!-- Modal body -->
-                                                <div class="modal-body">
-                                                    <form action="back-end/avaliador/EdicaoAvaliador.php" method="post">
-                                                        <input type="hidden" name="id_avaliador" value="<?php echo $retorno_cadastro['id_avaliador'];?>">
-
-                                                        <div class="form-group">
-                                                            <label for="inputNome">Nome</label>
-                                                            <input type="text" name="nome_avaliador" value="<?php echo $retorno_cadastro['nome_avaliador']; ?>" class="form-control" id="inputNome">
-                                                        </div>
-                                                        
-                                                        <div class="form-group">
-                                                            <label for="inputTelefone">Telefone</label>
-                                                            <input type="text" name="telefone" value="<?php echo $retorno_cadastro['telefone']; ?>" class="form-control" id="inputTelefone">
-                                                        </div>
-                                                        
-                                                        <div class="form-group">
-                                                            <label for="inputEmail">Email</label>
-                                                            <input type="text" name="email" value="<?php echo $retorno_cadastro['email']; ?>" class="form-control" id="inputEmail">
-                                                        </div>
-                                                        
-                                                        <div class="form-group">
-                                                            <label for="inputSenha">Senha</label>
-                                                            <input type="text" name="senha_avaliador" value="" class="form-control" id="inputSenha">
-
-                                                        </div>
-                                                        
-                                                        <input type="submit" value="Salvar edição" class="btn btn-warning">
-
-                                                    </form>
-                                                </div>
-
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Editar avaliador</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
                                             </div>
+
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+                                                <form action="back-end/avaliador/EdicaoAvaliador.php" method="post">
+                                                    <input type="hidden" name="id_avaliador" value="<?php echo $retorno_cadastro['id_avaliador'];?>">
+
+                                                    <div class="form-group">
+                                                        <label for="inputNome">Nome</label>
+                                                        <input type="text" name="nome_avaliador" value="<?php echo $retorno_cadastro['nome_avaliador']; ?>" class="form-control" id="inputNome">
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label for="inputTelefone">Telefone</label>
+                                                        <input type="text" name="telefone" value="<?php echo $retorno_cadastro['telefone']; ?>" class="form-control" id="inputTelefone">
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label for="inputEmail">Email</label>
+                                                        <input type="text" name="email" value="<?php echo $retorno_cadastro['email']; ?>" class="form-control" id="inputEmail">
+                                                    </div>
+                                                    
+                                                    <div class="form-group">
+                                                        <label for="inputSenha">Senha</label>
+                                                        <input type="text" name="senha_avaliador" value="" class="form-control" id="inputSenha">
+
+                                                    </div>
+                                                    
+                                                    <input type="submit" value="Salvar edição" class="btn btn-warning">
+
+                                                </form>
+                                            </div>
+
                                         </div>
                                     </div>
+                                </div>
 
-                                    <?php 
-                                       }?>
-                                </tbody>
+                                <?php 
+                                    }?>
+                            </tbody>
                             </table>
 
                             <hr>
@@ -221,13 +225,19 @@ deleção de qualquer entidade do banco de dados.
                     </div>
                 </div>
 
+                <br>
+
+                <input class="form-control" id="pesquisaEscritores" type="text" placeholder="Pesquisar...">
+
+                <br>
+
                 <!-- TABELA PARA LISTAGEM DOS ESCRITORES -->
 
                 <div class="row mt-4">
         
                     <div class="col">
-                        <table class="table">
-                            <thead>
+                        <table class="table table-striped">
+                            <thead class="thead thead-dark">
                                 <tr>
                                     <th>Id</th>
                                     <th>Nome</th>
@@ -346,13 +356,19 @@ deleção de qualquer entidade do banco de dados.
                     </div>
                 </div>
 
+                <br>
+
+                <input class="form-control" id="pesquisaResumos" type="text" placeholder="Pesquisar...">
+
+                <br>
+
                 <!-- TABELA PARA LISTAGEM DOS RESUMOS -->
 
                 <div class="row mt-4">
                     
                     <div class="col">
-                        <table class="table">
-                            <thead>
+                        <table class="table table-striped">
+                            <thead class="thead thead-dark">
                                 <tr>
                                     <th>Id</th>
                                     <th>Título</th>
@@ -561,11 +577,17 @@ deleção de qualquer entidade do banco de dados.
                     </div>
                 </div>
 
+                <br>
+
+                <input class="form-control" id="pesquisaUsuarios" type="text" placeholder="Pesquisar...">
+
+                <br>
+
                 <div class="row mt-4">
         
                     <div class="col">
-                        <table class="table">
-                            <thead>
+                        <table class="table table-striped">
+                            <thead class="thead thead-dark">
                                 <tr>
                                     <th>Id</th>
                                     <th>Nome</th>
@@ -680,14 +702,6 @@ deleção de qualquer entidade do banco de dados.
                     
                 </div>
 
-
-
-
-
-
-
-
-
             </div>
 
             <br>
@@ -790,7 +804,7 @@ deleção de qualquer entidade do banco de dados.
                         
                         <!--Formulário que será puxado pelo método $_POST e depois tratado
                         na classe CadastroResumo.php-->
-                        <form enctype="multipart/form-data "action="./back-end/resumo/CadastroResumo.php" method="POST">
+                        <form enctype="multipart/form-data" action="./back-end/resumo/CadastroResumo.php" method="POST">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Cadastrar Resumo</h5>
@@ -945,9 +959,30 @@ deleção de qualquer entidade do banco de dados.
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script>
             $(document).ready(function(){
-                $("#myInput").on("keyup", function() {
+                $("#pesquisaAvaliadores").on("keyup", function() {
                     var value = $(this).val().toLowerCase();
-                    $("#myTable tr").filter(function() {
+                    $("#tabelaAvaliadores tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+
+                $("#pesquisaEscritores").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#tabelaEscritores tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+
+                $("#pesquisaResumos").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#tabelaResumos tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+
+                $("#pesquisaUsuarios").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#tabelaUsuarios tr").filter(function() {
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                     });
                 });

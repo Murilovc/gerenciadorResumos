@@ -7,6 +7,11 @@ include "../conexao.php";
     $escritor = $_POST['fk_id_escritor'];
     $avaliador = $_POST['fk_id_avaliador'];
 
+
+
+
+    $upload_arquivo = md5(time()) .$_FILES['arquivo']['name'];
+
     $query_cadastrar =
     "INSERT INTO resumos VALUES (
         null,
@@ -17,8 +22,9 @@ include "../conexao.php";
         '$avaliador'
     )";
 
-    $upload_arquivo = 'arquivos/' .md5(time()) .$_FILES['arquivo']['name'];
-    move_uploaded_file($_FILES['arquivo']['tmp_name'], $upload_arquivo);
+    
+    
+    move_uploaded_file($_FILES['arquivo']['tmp_name'], '../../arquivos/'.$upload_arquivo);
         
     $cadastrar_resumo = mysqli_query($conexao, $query_cadastrar) or die(mysqli_error($conexao));
 
