@@ -15,7 +15,7 @@
                 <li class="nav-item"><span class="fa fa-archive fa-2x" aria-hidden="true"></span></li>
                 <li class="nav-item"><a class="nav-link" href="selecao_resumo.php">Seleção de resumo</a></li>
                 <li class="nav-item"><span class= "fa fa-comment fa-2x" aria-hidden="true" aria-hidden="true"></span></li>
-                <li class="nav-item"><a class="nav-link" href="corretor.php">Corretor</a></li>
+                <li class="nav-item"><a class="nav-link" href="corretor.php">Sala de Correção</a></li>
             </ul>
         </div>
     </div>

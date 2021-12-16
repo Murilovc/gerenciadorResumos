@@ -14,7 +14,7 @@
 
         <?php 
         session_start();
-        if(!empty($_SESSION['id']) && $_SESSION['nivel'] == 1){
+        if(!empty($_SESSION['id']) && $_SESSION['nivel'] <= 1){
             echo "<a href='sair.php'>Sair</a>";
         }else{
             $_SESSION['msg'] = "Realize o login para continuar!";

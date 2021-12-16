@@ -41,7 +41,7 @@
 
         //pegando as informações dos resumos associados ao avaliador acima
         $query_resumos =
-        "SELECT id_resumo, titulo, fk_id_escritor, arquivo, fk_id_avaliador
+        "SELECT id_resumo, titulo, fk_id_escritor, arquivo, data_cadastro, fk_id_avaliador
         FROM resumos
         WHERE fk_id_avaliador='$id_avaliador'
         ";
@@ -54,32 +54,67 @@
         <div class="row mt-4">
             <div class="col text-left">
                 <h3 class="text-primary">Olá <?php echo $avaliador['nome_avaliador']?><br><br></h3>
-                <h3 class="text-primary">Lista de resumos com avaliação atribuída a você<br><br><br><br></h3>
+                <h3 class="text-primary">Lista de resumos com avaliação atribuída a você<br><br></h3>
 
-                <table class="table">
+                <table class="table table-striped">
                     <!-- Cabeçalho da tabela-->
-                    <thead>
+                    <thead class="thead thead-dark">
                         <tr>
                             <th>Id</th>
                             <th>Título</th>
-                            <th>Nome do autor</th>
                             <th>Nome do arquivo</th>
-                            <th>Ação corrigir</th>
+                            <th>Data cadastro</th>
+                            <th>Nome do autor</th>
+                            <th>Ação avaliar</th>
                         </tr>
                     </thead>
                     <!-- Corpo da tabela-->
                     <tbody id="tabelaSelecaoResumo">
 
                         <?php 
-                        while($resumos = mysqli_fetch_array($busca_resumos))
-                        {
-                            
-                        }
-                        ?>
+                        while($resumo = mysqli_fetch_array($busca_resumos))
+                        {?>    
+                            <td scope="row"><?php echo $resumo['id_resumo'];?></td>
+                            <td><?php echo $resumo['titulo'];?></td>
+                            <td><?php echo $resumo['arquivo'];?></td>
+                            <td><?php echo $resumo['data_cadastro'];?></td>
+                            <td>
+                                <?php 
+                                $id_escritor = $resumo['fk_id_escritor'];
 
+                                //consulta para retornar o nome de um escritor baseado em id
+                                $query_escritor = 
+                                "SELECT nome_escritor, id_escritor
+                                FROM escritores
+                                WHERE id_escritor='$id_escritor'
+                                ";
+
+                                $busca_escritor = mysqli_query($conexao, $query_escritor);
+
+                                $escritor = mysqli_fetch_array($busca_escritor);
+
+                                echo $escritor['nome_escritor'];
+                                ?>
+                            </td>
+                            <td>
+                                <form action="corretor.php" method="POST">
+                                    <input type="hidden" name="id_resumo" value="<?php echo $resumo['id_resumo'];?>">
+
+                                    <input type="submit" value="Avaliar" class="btn btn-success">
+                                </form>
+                            </td>
+                         <?php 
+                        }?>
                     </tbody>
                 </table>
-                <h3 class="text-primary">Outros resumos</h3>
+                
+                <!-- 
+                    IMPLEMENTAR NO FUTURO UMA SEGUNDA TABELA AQUI, DE FORMA 
+                    A PERMITIR QUE O PRÓPRIO PROFESSOR AVALIADOR ESCOLHA ADICIONAR
+                    DETERMINADO RESUMO À SUA LISTA. 
+                -->
+                <!-- h3 class="text-primary" Outros resumos -->
+                
             </div>
         </div>
 

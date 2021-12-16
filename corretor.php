@@ -27,7 +27,48 @@
 
         <div class="col mt-4">
             
-            <?php include "visualizador.php"?>
+            <?php 
+            include_once "back-end/conexao.php";
+            
+            echo $caminho = $_SERVER['REQUEST_URI'];
+            $id_resumo = substr($caminho, -1, 1);
+            
+            //coletando informações do resumo
+            $query_consulta_resumo = 
+            "SELECT id_resumo, arquivo, fk_id_escritor FROM resumos WHERE id_resumo='$id_resumo' LIMIT 1";
+
+            $busca_resumo = mysqli_query($conexao, $query_consulta_resumo);
+            $resultado_resumo = mysqli_fetch_array($busca_resumo);
+            
+
+            $local = $resultado_resumo['arquivo'];
+
+
+            //coletando informações do escritor
+            $id_escritor = $resultado_resumo['fk_id_escritor'];
+
+            $query_consulta_escritor =
+            "SELECT id_escritor, nome_escritor FROM escritores WHERE id_escritor='$id_escritor'";
+
+            $busca_escritor = mysqli_query($conexao, $query_consulta_escritor);
+            $resultado_escritor = mysqli_fetch_array($busca_escritor);
+            
+            $escritor = $resultado_escritor['nome_escritor'];
+            ?>
+
+            <div class="row mt-4">
+            <h3 class="text-primary">Resumo escrito por <?php echo $escritor;?></h3>
+            </div>
+            <!-- 
+            Os dois pontos antes do nome são necessários porque o endereço
+            do script em execução atual está "dentro" de visualizador.php, por
+            causa do id que passamos de administrativo.php para cá usando a URL.
+            Por exemplo, supondo que o id passado seja 4, a URL atual seria:
+            http://localhost/gerenciadorResumos/visualizador.php/4
+            -->
+            <iframe src="../assets/<?php echo $local;?>" width="100%" height="570px">
+            </iframe>
+            
         </div>
         <div class="col mt-4">
             <form action="back-end/comentario/CadastroComentario.php" method="POST">
