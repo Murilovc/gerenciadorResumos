@@ -790,7 +790,7 @@ deleção de qualquer entidade do banco de dados.
                         
                         <!--Formulário que será puxado pelo método $_POST e depois tratado
                         na classe CadastroResumo.php-->
-                        <form action="./back-end/resumo/CadastroResumo.php" method="POST">
+                        <form enctype="multipart/form-data "action="./back-end/resumo/CadastroResumo.php" method="POST">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Cadastrar Resumo</h5>
