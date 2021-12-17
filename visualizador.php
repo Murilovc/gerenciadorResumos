@@ -15,8 +15,9 @@
  		<?php 
     include_once "back-end/conexao.php";
     
-    echo $caminho = $_SERVER['REQUEST_URI'];
-    $id_resumo = substr($caminho, -1, 2);
+    $caminho = $_SERVER['REQUEST_URI'];
+    $array_string = explode("/", $caminho, 4);
+    $id_resumo = $array_string[3];
     
     //coletando informações do resumo
     $query_consulta_resumo = 

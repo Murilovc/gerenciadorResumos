@@ -17,7 +17,7 @@
 
         session_start();
         if(!empty($_SESSION['id']) && $_SESSION['nivel'] == 2){
-            echo "<a href='sair.php'>Sair</a>";
+            echo "Entrada bem-sucedida, ".$_SESSION['nome'];
         }else{
             $_SESSION['msg'] = "Realize o login para continuar!";
             header("Location: login.php");
@@ -53,8 +53,12 @@
         <!-- significa margin-top 4-->
         <div class="row mt-4">
             <div class="col text-left">
-                <h3 class="text-primary">Olá <?php echo $avaliador['nome_avaliador']?><br><br></h3>
-                <h3 class="text-primary">Lista de resumos com avaliação atribuída a você<br><br></h3>
+                <h3 class="text-primary">
+                    Página de Seleção de Resumo<br><br>
+                </h3>
+                <h3 class="text-primary">
+                    Lista de resumos com avaliação atribuída à <?php echo $avaliador['nome_avaliador']?>
+                </h3>
 
                 <table class="table table-striped">
                     <!-- Cabeçalho da tabela-->

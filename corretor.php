@@ -16,11 +16,10 @@
         <?php 
         session_start();
         if(!empty($_SESSION['id']) && $_SESSION['nivel'] == 2){
-            echo "Olá, ",$_SESSION['nome'].", bem-vindo! <br>";
-            echo "<a href='sair.php'>Sair</a>";
+            echo "Logado como ".$_SESSION['nome'];
         }else{
             $_SESSION['msg'] = "Realize o login para continuar!";
-        header("Location: login.php");
+            header("Location: login.php");
         }
         
         ?>
@@ -30,8 +29,7 @@
             <?php 
             include_once "back-end/conexao.php";
             
-            echo $caminho = $_SERVER['REQUEST_URI'];
-            $id_resumo = substr($caminho, -1, 1);
+            $id_resumo = $_POST['id_resumo'];
             
             //coletando informações do resumo
             $query_consulta_resumo = 
@@ -42,7 +40,7 @@
             
 
             $local = $resultado_resumo['arquivo'];
-
+            echo $local;
 
             //coletando informações do escritor
             $id_escritor = $resultado_resumo['fk_id_escritor'];
@@ -57,7 +55,7 @@
             ?>
 
             <div class="row mt-4">
-            <h3 class="text-primary">Resumo escrito por <?php echo $escritor;?></h3>
+                <h3 class="text-primary">Resumo escrito por <?php echo $escritor;?></h3>
             </div>
             <!-- 
             Os dois pontos antes do nome são necessários porque o endereço
@@ -66,7 +64,12 @@
             Por exemplo, supondo que o id passado seja 4, a URL atual seria:
             http://localhost/gerenciadorResumos/visualizador.php/4
             -->
-            <iframe src="../assets/<?php echo $local;?>" width="100%" height="570px">
+
+            <?php 
+            $paraprint = "../arquivos/".$local;
+            echo $paraprint;
+            ?>
+            <iframe src="../arquivos/<?php echo $local;?>" width="100%" height="570px">
             </iframe>
             
         </div>
