@@ -41,7 +41,7 @@
 
         //pegando as informações dos resumos associados ao avaliador acima
         $query_resumos =
-        "SELECT id_resumo, titulo, fk_id_escritor, arquivo, data_cadastro, fk_id_avaliador
+        "SELECT id_resumo, titulo, fk_id_escritor, comentario, arquivo, data_cadastro, fk_id_avaliador
         FROM resumos
         WHERE fk_id_avaliador='$id_avaliador'
         ";
@@ -52,7 +52,7 @@
 
         <!-- significa margin-top 4-->
         <div class="row mt-4">
-            <div class="col text-left">
+            <div class="col">
                 <h3 class="text-primary">
                     Página de Seleção de Resumo<br><br>
                 </h3>
@@ -66,7 +66,7 @@
                         <tr>
                             <th>Id</th>
                             <th>Título</th>
-                            <th>Nome do arquivo</th>
+                            <th>Comentario</th>
                             <th>Data cadastro</th>
                             <th>Nome do autor</th>
                             <th>Ação avaliar</th>
@@ -78,9 +78,48 @@
                         <?php 
                         while($resumo = mysqli_fetch_array($busca_resumos))
                         {?>    
+                            <tr>    
                             <td scope="row"><?php echo $resumo['id_resumo'];?></td>
                             <td><?php echo $resumo['titulo'];?></td>
-                            <td><?php echo $resumo['arquivo'];?></td>
+                            <td>
+                                <?php
+                                $comentario = NULL;
+                                //INÍCIO DO IF
+                                if(isset($resumo['comentario']) == true){ 
+                                    
+                                    $comentario = $resumo['comentario']?>
+                                    
+                                    <!-- BOTÃO VER COMENTARIO -->
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalVerComentario<?php echo $resumo['id_resumo'];?>">
+                                        Ver
+                                    </button>
+
+                                    <div class="modal fade" id="modalVerComentario<?php echo $resumo['id_resumo'];?>">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+
+                                                <!-- Cabeçalho do modal -->
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Ver comentário</h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+
+                                                <!-- Corpo do modal -->
+                                                <div class="modal-body">
+                                                    <textarea rows="9" cols="60" name="comentario" type="text"><?php echo $comentario?></textarea>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
+                                } else {
+                                    echo "<h6 style='color: Red;'>Resumo ainda não avaliado</h6>";
+                                }
+                                //FIM DO IF ELSE
+                                
+                                ?>
+                            </td>
                             <td><?php echo $resumo['data_cadastro'];?></td>
                             <td>
                                 <?php 
@@ -104,13 +143,20 @@
                                 <form action="corretor.php" method="POST">
                                     <input type="hidden" name="id_resumo" value="<?php echo $resumo['id_resumo'];?>">
 
-                                    <input type="submit" value="Avaliar" class="btn btn-success">
+
+                                    <input type="hidden" name="comentario" value="<?php $boolean = isset($comentario); echo $boolean == true ? $comentario : "";?>">
+
+
+                                    <input type="submit" value="Avaliar" class="btn btn-warning">
                                 </form>
                             </td>
+                            </tr>
                          <?php 
                         }?>
                     </tbody>
                 </table>
+
+                <hr>
                 
                 <!-- 
                     IMPLEMENTAR NO FUTURO UMA SEGUNDA TABELA AQUI, DE FORMA 

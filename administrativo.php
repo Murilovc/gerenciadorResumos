@@ -83,8 +83,8 @@ deleção de qualquer entidade do banco de dados.
                                     <th>Nome</th>
                                     <th>Telefone</th>
                                     <th>Email</th>
-                                    <th>Ação editar</th>
-                                    <th>Ação apagar</th>
+                                    <th>Editar</th>
+                                    <th>Apagar</th>
                                 </tr>
                             </thead>
                             <tbody id="myTable">
@@ -242,8 +242,8 @@ deleção de qualquer entidade do banco de dados.
                                     <th>Id</th>
                                     <th>Nome</th>
                                     <th>Data cadastro</th>
-                                    <th>Ação editar</th>
-                                    <th>Ação apagar</th>
+                                    <th>Editar</th>
+                                    <th>Apagar</th>
                                 </tr>
                             </thead>
                             <tbody id="tabelaEscritores">
@@ -373,10 +373,11 @@ deleção de qualquer entidade do banco de dados.
                                     <th>Id</th>
                                     <th>Título</th>
                                     <th>Escritor</th>
-                                    <th>Ação ver arquivo</th>
+                                    <th>Avaliação</th>
+                                    <th>Ver arquivo</th>
                                     <th>Data</th>
-                                    <th>Ação editar</th>
-                                    <th>Ação apagar</th>
+                                    <th>Editar</th>
+                                    <th>Apagar</th>
                                 </tr>
                             </thead>
                             <tbody id="tabelaResumos">
@@ -418,6 +419,58 @@ deleção de qualquer entidade do banco de dados.
 
                                         ?>
                                     </td>
+
+                                    <td>
+                                        <?php
+                                        $comentario = NULL;
+                                        //INÍCIO DO IF
+                                        if(isset($retorno_cadastro['comentario']) == true){ 
+                                            
+                                            $comentario = $retorno_cadastro['comentario'];
+                                            $id_avaliador = $retorno_cadastro['fk_id_avaliador'];?>
+                                            
+                                            <!-- BOTÃO VER AVALIAÇÃO -->
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalVerComentario<?php echo $retorno_cadastro['id_resumo'];?>">
+                                                Ver
+                                            </button>
+
+                                            <div class="modal fade" id="modalVerComentario<?php echo $retorno_cadastro['id_resumo'];?>">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+
+                                                        <?php 
+                                                        $query_avaliador = 
+                                                        "SELECT id_avaliador, nome_avaliador
+                                                        FROM avaliadores
+                                                        WHERE id_avaliador='$id_avaliador'";
+
+                                                        $busca_avaliador = mysqli_query($conexao, $query_avaliador);
+
+                                                        $avaliador = mysqli_fetch_array($busca_avaliador);
+                                                        ?>
+                                                    
+                                                        <!-- Cabeçalho do modal -->
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Avaliação de <?php echo $avaliador['nome_avaliador']?></h4>
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+
+                                                        <!-- Corpo do modal -->
+                                                        <div class="modal-body">
+                                                            <textarea rows="9" cols="60" name="comentario" type="text"><?php echo $comentario?></textarea>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                        } else {
+                                            echo "<h6 style='color: Red;'>Ainda não avaliado</h6>";
+                                        }
+                                        //FIM DO IF ELSE
+                                        
+                                        ?>
+                                    </td>
                                    
                                     <td>
                                         <!-- BOTÃO VER RESUMO -->
@@ -448,6 +501,8 @@ deleção de qualquer entidade do banco de dados.
                                         <!-- BOTÃO EXCLUIR RESUMO -->
                                         <form action="back-end/resumo/DelecaoResumo.php" method="post">
                                             <input type="hidden" name="id_resumo" value="<?php echo $retorno_cadastro['id_resumo'];?>">
+
+                                            <input type="hidden" name="arquivo" value="<?php echo $retorno_cadastro['arquivo'];?>">
 
                                             <input type="submit" value="Excluir" class="btn btn-danger">
                                         </form>
@@ -607,8 +662,8 @@ deleção de qualquer entidade do banco de dados.
                                     <th>Email</th>
                                     <th>Nível de privilégio</th>
                                     <th>Data cadastro</th>
-                                    <th>Ação editar</th>
-                                    <th>Ação apagar</th>
+                                    <th>Editar</th>
+                                    <th>Apagar</th>
                                 </tr>
                             </thead>
                             <tbody id="tabelaUsuarios">

@@ -3,12 +3,8 @@
 include "../conexao.php";
 
     $titulo = $_POST['titulo'];
-    $arquivo = $_POST['arquivo'];
     $escritor = $_POST['fk_id_escritor'];
     $avaliador = $_POST['fk_id_avaliador'];
-
-
-
 
     $upload_arquivo = md5(time()) .$_FILES['arquivo']['name'];
 
@@ -17,6 +13,7 @@ include "../conexao.php";
         null,
         '$titulo',
         '$upload_arquivo',
+        null,
         now(),
         '$escritor',
         '$avaliador'

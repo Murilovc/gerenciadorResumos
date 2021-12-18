@@ -21,7 +21,7 @@
     
     //coletando informações do resumo
     $query_consulta_resumo = 
-    "SELECT id_resumo, arquivo, fk_id_escritor FROM resumos WHERE id_resumo='$id_resumo' LIMIT 1";
+    "SELECT id_resumo, arquivo, fk_id_escritor, fk_id_avaliador FROM resumos WHERE id_resumo='$id_resumo' LIMIT 1";
 
     $busca_resumo = mysqli_query($conexao, $query_consulta_resumo);
     $resultado_resumo = mysqli_fetch_array($busca_resumo);
@@ -39,12 +39,26 @@
     $busca_escritor = mysqli_query($conexao, $query_consulta_escritor);
     $resultado_escritor = mysqli_fetch_array($busca_escritor);
     
-    $escritor = $resultado_escritor['nome_escritor'];
+    $nome_escritor = $resultado_escritor['nome_escritor'];
+
+    //coletando informações do avaliador
+    $id_avaliador = $resultado_resumo['fk_id_avaliador'];
+
+    $query_consulta_avaliador =
+    "SELECT id_avaliador, nome_avaliador FROM avaliadores WHERE id_avaliador='$id_avaliador'";
+
+    $busca_avaliador = mysqli_query($conexao, $query_consulta_avaliador);
+    $resultado_avaliador = mysqli_fetch_array($busca_avaliador);
+    
+    $nome_avaliador = $resultado_avaliador['nome_avaliador'];
+
     ?>
 
-    <div class="row mt-4">
-      <div class="text-right">
-        <h3 class="text-primary"> Resumo escrito por <?php echo $escritor;?></h3>
+    <div class="col mt-1">
+      <div class="text-left">
+        <h6 class="text-primary"> 
+          Resumo escrito por <?php echo $nome_escritor;?>, com avaliação atribuída à <?php echo $nome_avaliador;?>
+        </h6>
       </div>
       
     </div>
