@@ -910,6 +910,13 @@ deleção de qualquer entidade do banco de dados.
                 </div>
 
                 <!-- 
+                    $result = $mysqli->query("SELECT COUNT(*) FROM usuarios WHERE email = '{$email}'");
+                    $row = $result->fetch_row();
+                        if ($row[0] > 0) {
+                            echo "E-mail já cadastrado";
+                    } else {
+                            $mysqli->query("Insert into usuarios (nome,sobre,email,senha) values ('".$nome."','".$sobre."','".$email."','".$senha."')");
+                        }
                     MODAL PARA FORMULÁRIO DE USUÁRIOS 
                 -->
                 <div class="modal fade" id="modalUsuarios" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
