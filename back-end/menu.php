@@ -28,14 +28,9 @@
                 <li class="nav-item" aligh="text-center"><a class="nav-link" href="index.php">Início</a></li>
                 
                 <li class="nav-item">
-                    <span class="fa fa-archive" style="color: White;" aria-hidden="true"></span>
-                </li>
-                <li class="nav-item"><a class="nav-link" href="selecao_resumo.php">Seleção de resumo</a></li>
-                
-                <li class="nav-item">
                     <span class="fa fa-comment" style="color: White;" aria-hidden="true"></span>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="corretor.php">Sala de Correção</a></li>
+                <li class="nav-item"><a class="nav-link" href="selecao_resumo.php">Sala de Correção</a></li>
 
                 <li class="nav-item">
                     <span class="fa fa-upload" style="color: White;" aria-hidden="true"></span>
