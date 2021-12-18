@@ -780,6 +780,14 @@ deleção de qualquer entidade do banco de dados.
                 <!-- 
                     MODAL PARA FORMULÁRIO DE ESCRITORES 
                 -->
+                <?php
+                $result = $mysqli->query("SELECT COUNT(*) FROM usuarios WHERE email = '{$email}'");
+                $row = $result->fetch_row();
+                if ($row[0] > 0) {
+                    echo "E-mail já cadastrado";
+                } else {
+
+                ?>
                 <div class="modal fade" id="modalEscritores" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         
@@ -911,6 +919,15 @@ deleção de qualquer entidade do banco de dados.
 
                 <!-- 
                     MODAL PARA FORMULÁRIO DE USUÁRIOS 
+                -->
+                <!-- validação do e-mail sem funcionar
+                <?php
+                $result = $mysqli->query("SELECT COUNT(*) FROM usuarios WHERE email = '{$email}'");
+                $row = $result->fetch_row();
+                if ($row[0] > 0) {
+                    echo "E-mail já cadastrado";
+                } else {
+                    ?>
                 -->
                 <div class="modal fade" id="modalUsuarios" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
