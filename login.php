@@ -125,7 +125,7 @@ session_start();
 				h=200
 				
 				-->
-				<img class="mx-auto d-block" src="logo_ufac.png" width="92" height="133" >
+				<img class="mx-auto d-block" src="images/logo_ufac.png" width="92" height="133" >
 				<h4 class="modal-title">Acesse sua conta</h4>
 				<div class="form-group">
 					<input type="email" name="email" class="form-control" placeholder="E-mail" required="required">

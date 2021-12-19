@@ -5,7 +5,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container px-5">
         <a class="navbar-brand" href="index.php">
-            <img src="logo_proex.png" width="96" height="37" alt="">
+            <img src="images/logo_proex.png" width="96" height="37" alt="">
             Gerenciamento de Resumos
         </a>
         
