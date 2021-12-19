@@ -11,23 +11,43 @@ include "../conexao.php";
     $email = $_POST['email'];
     $senha = $_POST['senha_avaliador'];
 
-    $senha_cripto = password_hash($senha, PASSWORD_DEFAULT);
+    $query_email_avaliadores =
+    "SELECT email FROM avaliadores WHERE email='$email'";
 
-    /*Consulta SQL a tebela
-    avaliadores.
-    O primeiro valor é passado como
-    null, pois o próprio banco de dados
-    vai atribuir um id ao avaliador*/
-    $query_cadastrar = 
-    "INSERT INTO avaliadores VALUES (
-        null,
-        '$nome',
-        '$telefone',
-        '$email',
-        now(),
-        '$senha_cripto'
-    )";
+    $checagem_avaliadores = mysqli_query($conexao, $query_email_avaliadores);
 
-    $cadastrar_avaliador = mysqli_query($conexao, $query_cadastrar) or die(mysqli_error($conexao));
+    $resultado_avaliadores = mysqli_fetch_array($checagem_avaliadores);
 
-    header('location: ../../administrativo.php');
+    $query_email_usuarios =
+    "SELECT email_usuario FROM usuarios WHERE email_usuario='$email'";
+
+    $checagem_usuarios = mysqli_query($conexao, $query_email_usuarios);
+
+    $resultado_usuarios = mysqli_fetch_array($checagem_usuarios);
+
+    if(empty($resultado_avaliadores) && empty($resultado_usuarios)){
+        $senha_cripto = password_hash($senha, PASSWORD_DEFAULT);
+
+        /*Consulta SQL a tebela
+        avaliadores.
+        O primeiro valor é passado como
+        null, pois o próprio banco de dados
+        vai atribuir um id ao avaliador*/
+        $query_cadastrar = 
+        "INSERT INTO avaliadores VALUES (
+            null,
+            '$nome',
+            '$telefone',
+            '$email',
+            now(),
+            '$senha_cripto'
+        )";
+
+        $cadastrar_avaliador = mysqli_query($conexao, $query_cadastrar) or die(mysqli_error($conexao));
+
+        header('location: ../../administrativo.php');
+    } else {
+        echo "Utilize outro email";
+        header('location: ../../administrativo.php');
+    }
+
