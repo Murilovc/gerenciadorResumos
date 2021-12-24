@@ -2,9 +2,12 @@
 
 include "../conexao.php";
 
+    $origem_solicitacao = $_POST['pagina_atual'];
+
     $titulo = $_POST['titulo'];
     $escritor = $_POST['fk_id_escritor'];
     $avaliador = $_POST['fk_id_avaliador'];
+    
 
     $upload_arquivo = md5(time()) .$_FILES['arquivo']['name'];
 
@@ -25,4 +28,4 @@ include "../conexao.php";
         
     $cadastrar_resumo = mysqli_query($conexao, $query_cadastrar) or die(mysqli_error($conexao));
 
-    header('location: ../../administrativo.php');
+    header('location: ../../'.$origem_solicitacao);

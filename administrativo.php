@@ -883,6 +883,8 @@ deleção de qualquer entidade do banco de dados.
                                 <div class="modal-body">
                                     <div class="modal-body">
 
+                                        <input type="hidden" name="pagina_atual" value="administrativo.php">
+
                                         <div class="form-group">
                                             <label for="exampleInputTitulo">Título</label>
                                             <input name="titulo" type="name" class="form-control" id="exampleInputTitulo">
@@ -1018,6 +1020,9 @@ deleção de qualquer entidade do banco de dados.
         
 
         </div>
+
+
+        <?php include "rodape.php";?>
 
 
         <!-- Optional JavaScript -->

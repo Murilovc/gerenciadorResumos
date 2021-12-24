@@ -34,6 +34,9 @@
             <form enctype="multipart/form-data" action="./back-end/resumo/CadastroResumo.php" method="POST">
                 
                 <div class="col text-left">
+                    
+                    <input type="hidden" name="pagina_atual" value="envio_arquivo.php">
+                    
                     <div class="form-group">
                         <label for="exampleInputTitulo">Título</label>
                         <input name="titulo" type="name" class="form-control" id="exampleInputTitulo">
@@ -115,6 +118,8 @@
 
         </div>
     </div>
+
+    <?php include "rodape.php";?>
 
 
 

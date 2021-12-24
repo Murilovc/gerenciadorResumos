@@ -133,9 +133,6 @@ session_start();
 				<div class="form-group">
 					<input type="password" name="senha" class="form-control" placeholder="Senha" required="required">
 				</div>
-				<div class="form-group small clearfix">
-					<label class="form-check-label"><input type="checkbox"> Lembre-se de mim</label>
-				</div> 
 				<input type="submit" name="btnLogin" class="btn btn-primary btn-block btn-lg" value="Acessar">              
 			</div>
 		</form>			
