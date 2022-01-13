@@ -94,14 +94,21 @@ deleção de qualquer entidade do banco de dados.
 
                                     //consulta sql para retornar todos
                                     //os avaliadores
-                                    $query_listar = 
-                                    "SELECT * FROM avaliadores";
+                                    
+                                    require_once "back-end/avaliador/ControleAvaliador.php";
+                                    $controle_avaliador = new ControleAvaliador();
+                                    $busca_avaliadores = $controle_avaliador->pegar_todos();
 
-                                    $buscar_avaliadores = mysqli_query($conexao, $query_listar);
+                
+                                    
+                                    //$query_listar = 
+                                    //"SELECT * FROM avaliadores";
+
+                                    //$busca_avaliadores = mysqli_query($conexao, $query_listar);
 
                                     
                                     //enquanto a lista não chegar no último lemento (nulo)
-                                    while($retorno_cadastro = mysqli_fetch_array($buscar_avaliadores))
+                                    while($retorno_cadastro = mysqli_fetch_array($busca_avaliadores))
                                     {
                                 ?>
                                 <tr>
