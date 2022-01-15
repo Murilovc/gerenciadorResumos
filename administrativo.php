@@ -34,6 +34,17 @@ deleção de qualquer entidade do banco de dados.
             header("Location: login.php");
         }
         
+        require_once "back-end/avaliador/ControleAvaliador.php";
+        require_once "back-end/escritor/ControleEscritor.php";
+        require_once "back-end/resumo/ControleResumo.php";
+        require_once "back-end/usuario/ControleUsuario.php";
+        
+        /*Instanciando as classes de controle SQL*/
+        $controle_avaliador = new ControleAvaliador();
+        $controle_escritor = new ControleEscritor();
+        $controle_resumo = new ControleResumo();
+        $controle_usuario = new ControleUsuario();
+
         ?>
     
         <div class="container">    
@@ -95,16 +106,9 @@ deleção de qualquer entidade do banco de dados.
                                     //consulta sql para retornar todos
                                     //os avaliadores
                                     
-                                    require_once "back-end/avaliador/ControleAvaliador.php";
-                                    $controle_avaliador = new ControleAvaliador();
-                                    $busca_avaliadores = $controle_avaliador->pegar_todos();
-
-                
                                     
-                                    //$query_listar = 
-                                    //"SELECT * FROM avaliadores";
-
-                                    //$busca_avaliadores = mysqli_query($conexao, $query_listar);
+                                    
+                                    $busca_avaliadores = $controle_avaliador->pegar_todos();
 
                                     
                                     //enquanto a lista não chegar no último lemento (nulo)
@@ -259,25 +263,25 @@ deleção de qualquer entidade do banco de dados.
                                     include "back-end/conexao.php";
 
                                     //consulta sql para retornar todos
-                                    //os avaliadores
-                                    $query_listar = 
-                                    "SELECT * FROM escritores";
+                                    //os escritores
+                                    
+                                    
 
-                                    $buscar_escritores = mysqli_query($conexao, $query_listar);
-
+                                    $controle_escritor = new ControleEscritor();
+                                    $busca_escritores = $controle_escritor->pegar_todos();
                                     
                                     //enquanto a lista não chegar no último elemento (nulo)
-                                    while($retorno_cadastro = mysqli_fetch_array($buscar_escritores))
+                                    while($reeducando = mysqli_fetch_array($busca_escritores))
                                     {
                                 ?>
                                 <tr>
-                                    <td scope="row"><?php echo $retorno_cadastro['id_escritor'];?></td>
-                                    <td><?php echo $retorno_cadastro['nome_escritor'];?></td>
-                                    <td><?php echo $retorno_cadastro['data_cadastro'];?></td>
+                                    <td scope="row"><?php echo $reeducando['id_escritor'];?></td>
+                                    <td><?php echo $reeducando['nome_escritor'];?></td>
+                                    <td><?php echo $reeducando['data_cadastro'];?></td>
                                         
                                     <td>
                                         <!-- BOTÃO EDITAR AVALIADOR -->
-                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalEscritoresEdicao<?php echo $retorno_cadastro['id_escritor'];?>">
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalEscritoresEdicao<?php echo $reeducando['id_escritor'];?>">
                                             Editar
                                         </button>
                                     </td>
@@ -285,7 +289,7 @@ deleção de qualquer entidade do banco de dados.
                                     <td>
                                         <!-- BOTÃO EXCLUIR AVALIADOR -->
                                         <form action="back-end/escritor/DelecaoEscritor.php" method="post">
-                                            <input type="hidden" name="id_escritor" value="<?php echo $retorno_cadastro['id_escritor'];?>">
+                                            <input type="hidden" name="id_escritor" value="<?php echo $reeducando['id_escritor'];?>">
 
                                             <input type="submit" value="Excluir" class="btn btn-danger">
                                         </form>
@@ -294,7 +298,7 @@ deleção de qualquer entidade do banco de dados.
 
                                 <!-- aqui vai a janela modal de edicao -->
                                 <!-- The Modal -->
-                                <div class="modal fade" id="modalEscritoresEdicao<?php echo $retorno_cadastro['id_escritor'];?>">
+                                <div class="modal fade" id="modalEscritoresEdicao<?php echo $reeducando['id_escritor'];?>">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
 
@@ -307,11 +311,11 @@ deleção de qualquer entidade do banco de dados.
                                             <!-- Modal body -->
                                             <div class="modal-body">
                                                 <form action="back-end/escritor/EdicaoEscritor.php" method="post">
-                                                    <input type="hidden" name="id_escritor" value="<?php echo $retorno_cadastro['id_escritor'];?>">
+                                                    <input type="hidden" name="id_escritor" value="<?php echo $reeducando['id_escritor'];?>">
 
                                                     <div class="form-group">
                                                         <label for="inputNome">Nome</label>
-                                                        <input type="text" name="nome_escritor" value="<?php echo $retorno_cadastro['nome_escritor']; ?>" class="form-control">
+                                                        <input type="text" name="nome_escritor" value="<?php echo $reeducando['nome_escritor']; ?>" class="form-control">
                                                     </div>
                                                     
                                                     <input type="submit" value="Salvar edição" class="btn btn-warning">
@@ -394,32 +398,28 @@ deleção de qualquer entidade do banco de dados.
 
                                     //consulta sql para retornar todos
                                     //os resumos
-                                    $query_listar = 
-                                    "SELECT * FROM resumos";
-
-                                    $buscar_resumos = mysqli_query($conexao, $query_listar);
+                                    
+                                    
+                                    $controle_resumo = new ControleResumo();
+                                    $busca_resumos = $controle_resumo->pegar_todos();
 
                                     
                                     //enquanto a lista não chegar no último elemento (nulo)
-                                    while($retorno_cadastro = mysqli_fetch_array($buscar_resumos))
+                                    while($resumo = mysqli_fetch_array($busca_resumos))
                                     {
                                 ?>
                                 
                                 <tr>
                                     <!-- LISTAGEM DOS RESUMOS -->
-                                    <td scope="row"><?php echo $retorno_cadastro['id_resumo'];?></td>
-                                    <td><?php echo $retorno_cadastro['titulo'];?></td>
+                                    <td scope="row"><?php echo $resumo['id_resumo'];?></td>
+                                    <td><?php echo $resumo['titulo'];?></td>
                                     <td>
                                          
                                         <?php 
-                                        $id_escritor = $retorno_cadastro['fk_id_escritor'];
-                                        $query_escritor = 
-                                        "SELECT id_escritor, nome_escritor
-                                        FROM escritores 
-                                        WHERE id_escritor='$id_escritor'
-                                        ";
+                                        $id_escritor = $resumo['fk_id_escritor'];
                                         
-                                        $busca_escritor = mysqli_query($conexao, $query_escritor);
+                                        
+                                        $busca_escritor = $controle_escritor->pesquisar_por_id($id_escritor);
                                         $escritor = mysqli_fetch_array($busca_escritor);
 
                                         echo $escritor['nome_escritor'];
@@ -431,27 +431,22 @@ deleção de qualquer entidade do banco de dados.
                                         <?php
                                         $comentario = NULL;
                                         //INÍCIO DO IF
-                                        if(isset($retorno_cadastro['comentario']) == true){ 
+                                        if(isset($resumo['comentario']) == true){ 
                                             
-                                            $comentario = $retorno_cadastro['comentario'];
-                                            $id_avaliador = $retorno_cadastro['fk_id_avaliador'];?>
+                                            $comentario = $resumo['comentario'];
+                                            $id_avaliador = $resumo['fk_id_avaliador'];?>
                                             
                                             <!-- BOTÃO VER AVALIAÇÃO -->
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalVerComentario<?php echo $retorno_cadastro['id_resumo'];?>">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalVerComentario<?php echo $resumo['id_resumo'];?>">
                                                 Ver
                                             </button>
 
-                                            <div class="modal fade" id="modalVerComentario<?php echo $retorno_cadastro['id_resumo'];?>">
+                                            <div class="modal fade" id="modalVerComentario<?php echo $resumo['id_resumo'];?>">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
 
                                                         <?php 
-                                                        $query_avaliador = 
-                                                        "SELECT id_avaliador, nome_avaliador
-                                                        FROM avaliadores
-                                                        WHERE id_avaliador='$id_avaliador'";
-
-                                                        $busca_avaliador = mysqli_query($conexao, $query_avaliador);
+                                                        $busca_avaliador = $controle_avaliador->pesquisar_por_id($id_avaliador);
 
                                                         $avaliador = mysqli_fetch_array($busca_avaliador);
                                                         ?>
@@ -486,7 +481,7 @@ deleção de qualquer entidade do banco de dados.
                                             
                                             <?php 
                                             $path = "http://localhost/gerenciadorResumos/visualizador.php";
-                                            $path = $path."/".$retorno_cadastro['id_resumo'];
+                                            $path = $path."/".$resumo['id_resumo'];
                                             ?>
                                             
                                             <a href="<?php echo $path?>" target="_blank" rel="noreferrer">Ver</a>
@@ -495,11 +490,11 @@ deleção de qualquer entidade do banco de dados.
 
                                     
                                     
-                                    <td><?php echo $retorno_cadastro['data_cadastro'];?></td>    
+                                    <td><?php echo $resumo['data_cadastro'];?></td>    
                                     
                                     <td>
                                         <!-- BOTÃO EDITAR RESUMO -->
-                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalResumosEdicao<?php echo $retorno_cadastro['id_resumo'];?>">
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalResumosEdicao<?php echo $resumo['id_resumo'];?>">
                                             Editar
                                         </button>
                                     </td>
@@ -507,9 +502,9 @@ deleção de qualquer entidade do banco de dados.
                                     <td>
                                         <!-- BOTÃO EXCLUIR RESUMO -->
                                         <form action="back-end/resumo/DelecaoResumo.php" method="post">
-                                            <input type="hidden" name="id_resumo" value="<?php echo $retorno_cadastro['id_resumo'];?>">
+                                            <input type="hidden" name="id_resumo" value="<?php echo $resumo['id_resumo'];?>">
 
-                                            <input type="hidden" name="arquivo" value="<?php echo $retorno_cadastro['arquivo'];?>">
+                                            <input type="hidden" name="arquivo" value="<?php echo $resumo['arquivo'];?>">
 
                                             <input type="submit" value="Excluir" class="btn btn-danger">
                                         </form>
@@ -518,7 +513,7 @@ deleção de qualquer entidade do banco de dados.
 
                                 <!-- aqui vai a janela modal de edicao -->
                                 <!-- The Modal -->
-                                <div class="modal fade" id="modalResumosEdicao<?php echo $retorno_cadastro['id_resumo'];?>">
+                                <div class="modal fade" id="modalResumosEdicao<?php echo $resumo['id_resumo'];?>">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
 
@@ -532,21 +527,19 @@ deleção de qualquer entidade do banco de dados.
                                             <!-- Modal body -->
                                             <div class="modal-body">
                                                 <form action="back-end/resumo/EdicaoResumo.php" method="post">
-                                                    <input type="hidden" name="id_resumo" value="<?php echo $retorno_cadastro['id_resumo'];?>">
+                                                    <input type="hidden" name="id_resumo" value="<?php echo $resumo['id_resumo'];?>">
 
                                                     <div class="form-group">
                                                         <label for="exampleFormControlTitulo">Título</label>
-                                                        <input type="text" name="titulo" value="<?php echo $retorno_cadastro['titulo']; ?>" class="form-control">
+                                                        <input type="text" name="titulo" value="<?php echo $resumo['titulo']; ?>" class="form-control">
                                                     </div>
                                                     
 
 
 
                                                     <?php
-                                                    $query_listar_escritores = 
-                                                    "SELECT * FROM escritores";
 
-                                                    $buscar_escritores = mysqli_query($conexao, $query_listar_escritores);
+                                                    $busca_escritores = $controle_escritor->pegar_todos();
 
                                                 
                                                     ?>
@@ -557,25 +550,22 @@ deleção de qualquer entidade do banco de dados.
                                                         <?php 
                                                         //enquanto a lista não chegar no último elemento (nulo)
                                                         //INÍCIO DO WHILE
-                                                        while($escritores = mysqli_fetch_array($buscar_escritores))
+                                                        while($escritor = mysqli_fetch_array($busca_escritores))
                                                         {
                                                         ?>
-                                                            <option value="<?php echo $escritores['id_escritor']?>"><?php echo $escritores['nome_escritor']?></option>
+                                                            <option value="<?php echo $escritor['id_escritor']?>"><?php echo $escritor['nome_escritor']?></option>
                                                         <?php
                                                         }
                                                         //FIM DO WHILE
                                                         ?>
-                                                        <option value="<?php echo $retorno_cadastro['fk_id_escritor'];?>" selected>Manter o mesmo</option>
+                                                        <option value="<?php echo $resumo['fk_id_escritor'];?>" selected>Manter o mesmo</option>
                                                         </select>
 
                                                     </div>
 
                                                     <?php
-                                                    $query_listar_avaliadores = 
-                                                    "SELECT * FROM avaliadores";
 
-                                                    $buscar_avaliadores = mysqli_query($conexao, $query_listar_avaliadores);
-
+                                                    $busca_avaliadores = $controle_avaliador->pegar_todos();
                                                 
                                                     ?>
                                                     <div class="form-group">
@@ -585,21 +575,21 @@ deleção de qualquer entidade do banco de dados.
                                                         <?php 
                                                         //enquanto a lista não chegar no último elemento (nulo)
                                                         //INÍCIO DO WHILE
-                                                        while($avaliadores = mysqli_fetch_array($buscar_avaliadores))
+                                                        while($avaliador = mysqli_fetch_array($busca_avaliadores))
                                                         {
                                                         ?>
                                                         <!-- value é o valor que será retornado deste seletor quando o 
                                                         formulário for enviado. -->
-                                                        <option value="<?php echo $avaliadores['id_avaliador']?>">
+                                                        <option value="<?php echo $avaliador['id_avaliador']?>">
                                                             <!-- Isto é o que será exibido para o usuário selecionar-->
-                                                            <?php echo $avaliadores['nome_avaliador']?>
+                                                            <?php echo $avaliador['nome_avaliador']?>
                                                         </option>
                                                         
                                                         <?php
                                                         }
                                                         //FIM DO WHILE
                                                         ?>
-                                                        <option value="<?php echo $retorno_cadastro['fk_id_avaliador'];?>" selected>Manter o mesmo</option>
+                                                        <option value="<?php echo $resumo['fk_id_avaliador'];?>" selected>Manter o mesmo</option>
                                                         </select>
 
                                                     </div>
@@ -680,26 +670,24 @@ deleção de qualquer entidade do banco de dados.
 
                                     //consulta sql para retornar todos
                                     //os usuários
-                                    $query_listar = 
-                                    "SELECT * FROM usuarios";
 
-                                    $buscar_usuarios = mysqli_query($conexao, $query_listar);
+                                    $buscar_usuarios = $controle_usuario->pegar_todos();
 
                                     
                                     //enquanto a lista não chegar no último elemento (nulo)
-                                    while($retorno_cadastro = mysqli_fetch_array($buscar_usuarios))
+                                    while($usuario = mysqli_fetch_array($buscar_usuarios))
                                     {
                                 ?>
                                 <tr>
-                                    <td scope="row"><?php echo $retorno_cadastro['id_usuario'];?></td>
-                                    <td><?php echo $retorno_cadastro['nome_usuario'];?></td>
-                                    <td><?php echo $retorno_cadastro['email_usuario'];?></td>
-                                    <td><?php echo $retorno_cadastro['nivel_usuario'];?></td>
-                                    <td><?php echo $retorno_cadastro['data_cadastro'];?></td>             
+                                    <td scope="row"><?php echo $usuario['id_usuario'];?></td>
+                                    <td><?php echo $usuario['nome_usuario'];?></td>
+                                    <td><?php echo $usuario['email_usuario'];?></td>
+                                    <td><?php echo $usuario['nivel_usuario'];?></td>
+                                    <td><?php echo $usuario['data_cadastro'];?></td>             
                                         
                                     <td>
                                         <!-- BOTÃO EDITAR USUÁRIO -->
-                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalUsuariosEdicao<?php echo $retorno_cadastro['id_usuario'];?>">
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalUsuariosEdicao<?php echo $usuario['id_usuario'];?>">
                                             Editar
                                         </button>
                                     </td>
@@ -707,7 +695,7 @@ deleção de qualquer entidade do banco de dados.
                                     <td>
                                         <!-- BOTÃO EXCLUIR USUÁRIO -->
                                         <form action="back-end/usuario/DelecaoUsuario.php" method="post">
-                                            <input type="hidden" name="id_usuario" value="<?php echo $retorno_cadastro['id_usuario'];?>">
+                                            <input type="hidden" name="id_usuario" value="<?php echo $usuario['id_usuario'];?>">
 
                                             <input type="submit" value="Excluir" class="btn btn-danger">
                                         </form>
@@ -716,7 +704,7 @@ deleção de qualquer entidade do banco de dados.
 
                                 <!-- aqui vai a janela modal de edicao -->
                                 <!-- The Modal -->
-                                <div class="modal fade" id="modalUsuariosEdicao<?php echo $retorno_cadastro['id_usuario'];?>">
+                                <div class="modal fade" id="modalUsuariosEdicao<?php echo $usuario['id_usuario'];?>">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
 
@@ -730,16 +718,16 @@ deleção de qualquer entidade do banco de dados.
                                             <div class="modal-body">
                                                 <form action="back-end/usuario/EdicaoUsuario.php" method="post">
                                                     
-                                                    <input type="hidden" name="id_usuario" value="<?php echo $retorno_cadastro['id_usuario'];?>">
+                                                    <input type="hidden" name="id_usuario" value="<?php echo $usuario['id_usuario'];?>">
 
                                                     <div class="form-group">
                                                         <label for="inputNome">Nome</label>
-                                                        <input type="text" name="nome_usuario" value="<?php echo $retorno_cadastro['nome_usuario']; ?>" class="form-control" id="inputNome">
+                                                        <input type="text" name="nome_usuario" value="<?php echo $usuario['nome_usuario']; ?>" class="form-control" id="inputNome">
                                                     </div>
                                                 
                                                     <div class="form-group">
                                                         <label for="inputEmail">Email</label>
-                                                        <input type="text" name="email_usuario" value="<?php echo $retorno_cadastro['email_usuario']; ?>" class="form-control" id="inputEmail">
+                                                        <input type="text" name="email_usuario" value="<?php echo $usuario['email_usuario']; ?>" class="form-control" id="inputEmail">
                                                     </div>
                                                     
                                                     <div class="form-group">
@@ -898,10 +886,8 @@ deleção de qualquer entidade do banco de dados.
                                         </div>
                                         
                                         <?php
-                                        $query_listar = 
-                                        "SELECT * FROM escritores";
 
-                                        $buscar_escritores = mysqli_query($conexao, $query_listar);
+                                        $busca_escritores = $controle_escritor->pegar_todos();
 
                                     
                                         ?>
@@ -912,10 +898,10 @@ deleção de qualquer entidade do banco de dados.
                                             <?php 
                                             //enquanto a lista não chegar no último elemento (nulo)
                                             //INÍCIO DO WHILE
-                                            while($retorno_cadastro = mysqli_fetch_array($buscar_escritores))
+                                            while($escritor = mysqli_fetch_array($busca_escritores))
                                             {
                                             ?>
-                                                <option value="<?php echo $retorno_cadastro['id_escritor']?>"><?php echo $retorno_cadastro['nome_escritor']?></option>
+                                                <option value="<?php echo $escritor['id_escritor']?>"><?php echo $escritor['nome_escritor']?></option>
                                             <?php
                                             }
                                             //FIM DO WHILE
@@ -925,11 +911,8 @@ deleção de qualquer entidade do banco de dados.
                                         </div>
 
                                         <?php
-                                        $query_listar_avaliadores = 
-                                        "SELECT * FROM avaliadores";
 
-                                        $buscar_avaliadores = mysqli_query($conexao, $query_listar_avaliadores);
-
+                                        $busca_avaliadores = $controle_avaliador->pegar_todos();
                                     
                                         ?>
                                         <div class="form-group">
@@ -939,14 +922,14 @@ deleção de qualquer entidade do banco de dados.
                                             <?php 
                                             //enquanto a lista não chegar no último elemento (nulo)
                                             //INÍCIO DO WHILE
-                                            while($retorno_cadastro = mysqli_fetch_array($buscar_avaliadores))
+                                            while($avaliador = mysqli_fetch_array($busca_avaliadores))
                                             {
                                             ?>
                                             <!-- value é o valor que será retornado deste seletor quando o 
                                             formulário for enviado. -->
-                                            <option value="<?php echo $retorno_cadastro['id_avaliador']?>">
+                                            <option value="<?php echo $avaliador['id_avaliador']?>">
                                                 <!-- Isto é o que será exibido para o usuário selecionar-->
-                                                <?php echo $retorno_cadastro['nome_avaliador']?>
+                                                <?php echo $avaliador['nome_avaliador']?>
                                             </option>
                                             
                                             <?php

@@ -1,15 +1,15 @@
 <?php
      
-    class Escritor {
+    class ControleEscritor {
 
-        function Escritor(){
-            
+        function ControleEscritor(){
+            set_include_path("./");
         }
         
         public function pesquisar_por_id($id_escritor)
         {
             //precisamos ter acesso a conexao
-            include_once "../conexao.php";
+            include "back-end/conexao.php";
             
             $query_escritor = 
             "SELECT id_escritor, nome_escritor
@@ -23,7 +23,7 @@
         public function pegar_todos()
         {
             //precisamos ter acesso a conexao
-            include_once "../conexao.php";
+            include "back-end/conexao.php";
             
             $query_listar = 
             "SELECT * FROM escritores";

@@ -1,15 +1,15 @@
 <?php
      
-    class Usuario {
+    class ControleUsuario {
 
-        function Usuario(){
-            
+        function ControleUsuario(){
+            set_include_path("./");
         }
         
         public function pesquisar_por_id($id_usuario)
         {
             //precisamos ter acesso a conexao
-            include_once "../conexao.php";
+            include "back-end/conexao.php";
             
             $query_usuario = 
             "SELECT id_usuario, nome_usuario, email_usuario, senha_usuario, nivel_usuario
@@ -23,7 +23,7 @@
         public function pegar_todos()
         {
             //precisamos ter acesso a conexao
-            include_once "../conexao.php";
+            include "back-end/conexao.php";
             
             $query_listar = 
             "SELECT * FROM usuarios";

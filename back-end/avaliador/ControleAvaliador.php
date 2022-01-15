@@ -2,10 +2,15 @@
      
     class ControleAvaliador {
         
+        /*O construtor seta o include path*/
+        function ControleAvaliador(){
+            set_include_path("./");
+        }
+        
         public function pesquisar_por_id($id_avaliador)
         {
             //precisamos ter acesso a conexao
-            include_once "../conexao.php";
+            include "back-end/conexao.php";
             
             $query_avaliador = 
             "SELECT id_avaliador, nome_avaliador, telefone, email, senha_avaliador
@@ -22,7 +27,9 @@
             //os ../../ são para retornar a raiz da pasta xampp
             //considerando o include_path padrão:
             //include_path='C:\xampp\php\PEAR'
-            include "../../htdocs/gerenciadorResumos/back-end/conexao.php";
+            
+            include "back-end/conexao.php";
+
             
             $query_listar = 
             "SELECT * FROM avaliadores";
