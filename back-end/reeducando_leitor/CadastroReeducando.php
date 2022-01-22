@@ -3,11 +3,13 @@
     include "../conexao.php";
 
     $nome = $_POST['nome_escritor'];
+    $rgc = $_POST['rgc_reeducando'];
 
     $query_cadastrar =
-    "INSERT INTO escritores VALUES (
+    "INSERT INTO reeducandos VALUES (
         null,
         '$nome',
+        '$rgc',
         now()
     )";
 

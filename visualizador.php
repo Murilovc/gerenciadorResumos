@@ -16,48 +16,55 @@
     include_once "back-end/conexao.php";
     
     $caminho = $_SERVER['REQUEST_URI'];
-    $array_string = explode("/", $caminho, 4);
-    $id_resumo = $array_string[3];
+    $local = $_POST['arquivo'];
+    /*COMENTAR AO ENVIAR PARA O SERVIDOR
+    $array_string = explode("/", $caminho, 4);*/
+
+    /*DESCOMENTAR AO ENVIAR PARA O SERVIDOR*/
+    //$srray_string = explode("/", $caminho, 4);
+    //$id_resumo = $array_string[3];
+
+    //echo $id_resumo;
     
     //coletando informações do resumo
-    $query_consulta_resumo = 
-    "SELECT id_resumo, arquivo, fk_id_escritor, fk_id_avaliador FROM resumos WHERE id_resumo='$id_resumo' LIMIT 1";
+    //$query_consulta_resumo = 
+    //"SELECT id_resumo, arquivo, fk_id_escritor, fk_id_avaliador FROM resumos WHERE id_resumo='$id_resumo' LIMIT 1";
 
-    $busca_resumo = mysqli_query($conexao, $query_consulta_resumo);
-    $resultado_resumo = mysqli_fetch_array($busca_resumo);
+    //$busca_resumo = mysqli_query($conexao, $query_consulta_resumo);
+    //$resultado_resumo = mysqli_fetch_array($busca_resumo);
     
-
-    $local = $resultado_resumo['arquivo'];
+    
+    //$local = $resultado_resumo['arquivo'];
 
 
     //coletando informações do escritor
-    $id_escritor = $resultado_resumo['fk_id_escritor'];
+    //$id_escritor = $resultado_resumo['fk_id_escritor'];
 
-    $query_consulta_escritor =
-    "SELECT id_escritor, nome_escritor FROM escritores WHERE id_escritor='$id_escritor'";
+    //$query_consulta_escritor =
+    //"SELECT id_reeducando, nome_reeducando FROM reeducandos WHERE id_reeducando='$id_escritor'";
 
-    $busca_escritor = mysqli_query($conexao, $query_consulta_escritor);
-    $resultado_escritor = mysqli_fetch_array($busca_escritor);
+    //$busca_escritor = mysqli_query($conexao, $query_consulta_escritor);
+    //$resultado_escritor = mysqli_fetch_array($busca_escritor);
     
-    $nome_escritor = $resultado_escritor['nome_escritor'];
+    //$nome_escritor = $resultado_escritor['nome_reeducando'];
 
     //coletando informações do avaliador
-    $id_avaliador = $resultado_resumo['fk_id_avaliador'];
+    //$id_avaliador = $resultado_resumo['fk_id_avaliador'];
 
-    $query_consulta_avaliador =
-    "SELECT id_avaliador, nome_avaliador FROM avaliadores WHERE id_avaliador='$id_avaliador'";
+    //$query_consulta_avaliador =
+    //"SELECT id_avaliador, nome_avaliador FROM avaliadores WHERE id_avaliador='$id_avaliador'";
 
-    $busca_avaliador = mysqli_query($conexao, $query_consulta_avaliador);
-    $resultado_avaliador = mysqli_fetch_array($busca_avaliador);
+    //$busca_avaliador = mysqli_query($conexao, $query_consulta_avaliador);
+    //$resultado_avaliador = mysqli_fetch_array($busca_avaliador);
     
-    $nome_avaliador = $resultado_avaliador['nome_avaliador'];
+    //$nome_avaliador = $resultado_avaliador['nome_avaliador'];
 
     ?>
 
     <div class="col mt-1">
       <div class="text-left">
         <h6 class="text-primary"> 
-          Resumo escrito por <?php echo $nome_escritor;?>, com avaliação atribuída à <?php echo $nome_avaliador;?>
+          Resumo escrito por <?php echo $local//echo $nome_escritor;?>, com avaliação atribuída à <?php //echo $nome_avaliador;?>
         </h6>
       </div>
       
@@ -69,7 +76,10 @@
       Por exemplo, supondo que o id passado seja 4, a URL atual seria:
       http://localhost/gerenciadorResumos/visualizador.php/4
     -->
-    <iframe src="../arquivos/<?php echo $local;?>" width="100%" height="570px">
+    <!-- COMENTAR QUANDO ENVIAR PARA O SERVIDOR-->
+    <!--<iframe src="../arquivos/<?php //echo $local;?>" width="100%" height="570px">-->
+    <!-- DESCOMENTAR QUANDO ENVIAR PARA O SERVIDOR-->
+    <iframe src="http://200.129.173.64/projetoNove/arquivos/<?php echo $local; ?>" target="_blank" > ver resumo</a>
     </iframe>
  
   

@@ -35,13 +35,13 @@ deleção de qualquer entidade do banco de dados.
         }
         
         require_once "back-end/avaliador/ControleAvaliador.php";
-        require_once "back-end/escritor/ControleEscritor.php";
+        require_once "back-end/reeducando_leitor/ControleReeducando.php";
         require_once "back-end/resumo/ControleResumo.php";
         require_once "back-end/usuario/ControleUsuario.php";
         
         /*Instanciando as classes de controle SQL*/
         $controle_avaliador = new ControleAvaliador();
-        $controle_escritor = new ControleEscritor();
+        $controle_escritor = new ControleReeducando();
         $controle_resumo = new ControleResumo();
         $controle_usuario = new ControleUsuario();
 
@@ -94,11 +94,12 @@ deleção de qualquer entidade do banco de dados.
                                     <th>Nome</th>
                                     <th>Telefone</th>
                                     <th>Email</th>
+                                    <th>Instituição</th>
                                     <th>Editar</th>
                                     <th>Apagar</th>
                                 </tr>
                             </thead>
-                            <tbody id="myTable">
+                            <tbody id="tabelaAvaliadores">
                                 <?php
 
                                     include "back-end/conexao.php";
@@ -133,6 +134,7 @@ deleção de qualquer entidade do banco de dados.
                                         ?>
                                     </td>
                                     <td><?php echo $retorno_cadastro['email'];?></td>
+                                    <td><?php echo $retorno_cadastro['instituicao_avaliador']?></td>
                                         
                                     <td>
                                         <!-- BOTÃO EDITAR AVALIADOR -->
@@ -215,23 +217,23 @@ deleção de qualquer entidade do banco de dados.
             <br>
 
             <!--
-                *********************BOTÃO COLLAPSE ESCRITORES**************************
+                *********************BOTÃO COLLAPSE REEDUCANDOS**************************
                 Quando o usuário clicar neste botão, serão exibidas as opções de
                 cadastro, edição e deleção, por meio de uma listagem em forma de tabela. 
                 ************************************************************************
             -->
             
-            <button data-toggle="collapse" data-target="#collapseEscritores" class="btn btn-success btn-block">Escritores</button>
+            <button data-toggle="collapse" data-target="#collapseEscritores" class="btn btn-success btn-block">Reeducandos leitores</button>
             
             <div id="collapseEscritores" class="collapse">
                 <div class="row mt-4">
                     <div class="col">
-                        <h3 class="text-primary">Gerenciamento de Escritores</h3>
+                        <h3 class="text-primary">Gerenciamento de Reeducandos</h3>
                     </div>
                     <div class="col text-right">
                         <!-- BOTÃO CADASTRAR ESCRITOR-->
                         <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modalEscritores">
-                            Novo Escritor 
+                            Novo Reeducando
                         </button>
                     </div>
                 </div>
@@ -252,9 +254,10 @@ deleção de qualquer entidade do banco de dados.
                                 <tr>
                                     <th>Id</th>
                                     <th>Nome</th>
+                                    <th>RGC</th>
                                     <th>Data cadastro</th>
                                     <th>Editar</th>
-                                    <th>Apagar</th>
+                                    <th>Desativar</th>
                                 </tr>
                             </thead>
                             <tbody id="tabelaEscritores">
@@ -267,7 +270,7 @@ deleção de qualquer entidade do banco de dados.
                                     
                                     
 
-                                    $controle_escritor = new ControleEscritor();
+                                    $controle_escritor = new ControleReeducando();
                                     $busca_escritores = $controle_escritor->pegar_todos();
                                     
                                     //enquanto a lista não chegar no último elemento (nulo)
@@ -275,30 +278,31 @@ deleção de qualquer entidade do banco de dados.
                                     {
                                 ?>
                                 <tr>
-                                    <td scope="row"><?php echo $reeducando['id_escritor'];?></td>
-                                    <td><?php echo $reeducando['nome_escritor'];?></td>
+                                    <td scope="row"><?php echo $reeducando['id_reeducando'];?></td>
+                                    <td><?php echo $reeducando['nome_reeducando'];?></td>
+                                    <td><?php echo $reeducando['rgc_reeducando'];?></td>
                                     <td><?php echo $reeducando['data_cadastro'];?></td>
                                         
                                     <td>
                                         <!-- BOTÃO EDITAR AVALIADOR -->
-                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalEscritoresEdicao<?php echo $reeducando['id_escritor'];?>">
+                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalEscritoresEdicao<?php echo $reeducando['id_reeducando'];?>">
                                             Editar
                                         </button>
                                     </td>
                                         
                                     <td>
                                         <!-- BOTÃO EXCLUIR AVALIADOR -->
-                                        <form action="back-end/escritor/DelecaoEscritor.php" method="post">
-                                            <input type="hidden" name="id_escritor" value="<?php echo $reeducando['id_escritor'];?>">
+                                        <form action="back-end/escritor/DelecaoReeducando.php" method="post">
+                                            <input type="hidden" name="id_escritor" value="<?php echo $reeducando['id_reeducando'];?>">
 
-                                            <input type="submit" value="Excluir" class="btn btn-danger">
+                                            <input type="submit" value="Desativar" class="btn btn-danger">
                                         </form>
                                     </td>
                                 </tr>
 
                                 <!-- aqui vai a janela modal de edicao -->
                                 <!-- The Modal -->
-                                <div class="modal fade" id="modalEscritoresEdicao<?php echo $reeducando['id_escritor'];?>">
+                                <div class="modal fade" id="modalEscritoresEdicao<?php echo $reeducando['id_reeducando'];?>">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
 
@@ -310,12 +314,12 @@ deleção de qualquer entidade do banco de dados.
 
                                             <!-- Modal body -->
                                             <div class="modal-body">
-                                                <form action="back-end/escritor/EdicaoEscritor.php" method="post">
-                                                    <input type="hidden" name="id_escritor" value="<?php echo $reeducando['id_escritor'];?>">
+                                                <form action="back-end/escritor/EdicaoReeducando.php" method="post">
+                                                    <input type="hidden" name="id_escritor" value="<?php echo $reeducando['id_reeducando'];?>">
 
                                                     <div class="form-group">
                                                         <label for="inputNome">Nome</label>
-                                                        <input type="text" name="nome_escritor" value="<?php echo $reeducando['nome_escritor']; ?>" class="form-control">
+                                                        <input type="text" name="nome_escritor" value="<?php echo $reeducando['nome_reeducando']; ?>" class="form-control">
                                                     </div>
                                                     
                                                     <input type="submit" value="Salvar edição" class="btn btn-warning">
@@ -422,7 +426,7 @@ deleção de qualquer entidade do banco de dados.
                                         $busca_escritor = $controle_escritor->pesquisar_por_id($id_escritor);
                                         $escritor = mysqli_fetch_array($busca_escritor);
 
-                                        echo $escritor['nome_escritor'];
+                                        echo $escritor['nome_reeducando'];
 
                                         ?>
                                     </td>
@@ -476,12 +480,13 @@ deleção de qualquer entidade do banco de dados.
                                    
                                     <td>
                                         <!-- BOTÃO VER RESUMO -->
+                                        <!-- Não faz sentido usar POST sem ter um botao submit-->
                                         <form action="visualizador.php" method="post">
-                                            <input type="hidden" name="arquivo" value="Lorem_Ipsum.pdf">
+                                            <input type="hidden" name="arquivo" value="<?php $resumo['arquivo'];?>">
                                             
                                             <?php 
-                                            $path = "http://localhost/gerenciadorResumos/visualizador.php";
-                                            $path = $path."/".$resumo['id_resumo'];
+                                            $path = "http://200.129.173.64/projetoNove/visualizador.php";
+                                            //$path = $path."/".$resumo['id_resumo'];
                                             ?>
                                             
                                             <a href="<?php echo $path?>" target="_blank" rel="noreferrer">Ver</a>
@@ -537,7 +542,14 @@ deleção de qualquer entidade do banco de dados.
 
 
 
+                                                    
                                                     <?php
+                                                    /*************************AQUI *************************
+                                                     * Fazer uma barra de pesquisa para poder selecionar o escritor
+                                                     * por meio dela, ao invés de ter que navegar por todos os nomes.
+                                                     * 
+                                                    */
+
 
                                                     $busca_escritores = $controle_escritor->pegar_todos();
 
@@ -545,7 +557,7 @@ deleção de qualquer entidade do banco de dados.
                                                     ?>
                                                     <div class="form-group">
                                                         <label for="exampleInputNome">Nome do Escritor</label>
-                                                        <select name="fk_id_escritor" class="form-control">
+                                                        <select name="fk_id_escritor" class="form-control" id="selectEdicaoResumosReeducando">
                                     
                                                         <?php 
                                                         //enquanto a lista não chegar no último elemento (nulo)
@@ -553,7 +565,7 @@ deleção de qualquer entidade do banco de dados.
                                                         while($escritor = mysqli_fetch_array($busca_escritores))
                                                         {
                                                         ?>
-                                                            <option value="<?php echo $escritor['id_escritor']?>"><?php echo $escritor['nome_escritor']?></option>
+                                                            <option value="<?php echo $escritor['id_reeducando']?>"><?php echo $escritor['nome_reeducando']?></option>
                                                         <?php
                                                         }
                                                         //FIM DO WHILE
@@ -570,7 +582,7 @@ deleção de qualquer entidade do banco de dados.
                                                     ?>
                                                     <div class="form-group">
                                                         <label for="exampleInputNome">Quem deve avaliar este resumo?</label>
-                                                        <select name="fk_id_avaliador" class="form-control">
+                                                        <select name="fk_id_avaliador" class="form-control" id="selectEdicaoResumosAvaliador">
                                     
                                                         <?php 
                                                         //enquanto a lista não chegar no último elemento (nulo)
@@ -816,6 +828,15 @@ deleção de qualquer entidade do banco de dados.
                                                 <label for="inputSenha">Senha</label>
                                                 <input name="senha_avaliador" type="name" class="form-control" id="inputSenha" placeholder="senha">
                                             </div>
+                                            <div class="form-group">
+                                                <label for="inputInstuicao">Instituição</label>
+                                                <input name="instituicao_avaliador" type="name" class="form-control" id="inputInstuicao" placeholder="Universidade Federal do Acre">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputTermo">Aceitar termo</label>
+                                                <a href="http://200.129.173.64/projetoNove/arquivos/termocompromisso.pdf" target="_blank">Ver termo</a>
+                                                <input name="termo_avaliador" type="checkbox" class="form-control" id="inputTermo">
+                                            </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -835,20 +856,24 @@ deleção de qualquer entidade do banco de dados.
                         
                         <!--Formulário que será puxado pelo método $_POST e depois tratado
                         na classe CadastroEscritor.php-->
-                        <form action="./back-end/escritor/CadastroEscritor.php" method="POST">
+                        <form action="./back-end/reeducando_leitor/CadastroReeducando.php" method="POST">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Cadastrar Escritor</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Cadastrar Reeducando</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">×</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
                                     <div class="modal-body">
-                                            <div class="form-group">
-                                                <label for="inputNome">Nome</label>
-                                                <input name="nome_escritor" type="name" class="form-control" id="inputNome" aria-describedby="NomeHelp" placeholder="Nome">
-                                            </div>
+                                        <div class="form-group">
+                                            <label for="inputNome">Nome</label>
+                                            <input name="nome_escritor" type="name" class="form-control" id="inputNome" aria-describedby="NomeHelp" placeholder="Nome">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputRGC">RGC</label>
+                                            <input name="rgc_reeducando" type="name" class="form-control" id="inputRGC" aria-describedby="NomeHelp" placeholder="0">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -892,16 +917,16 @@ deleção de qualquer entidade do banco de dados.
                                     
                                         ?>
                                         <div class="form-group">
-                                            <label for="exampleInputNome">Nome do Escritor</label>
-                                            <select name="fk_id_escritor" class="form-control">
+                                            <label for="exampleInputNome">Nome do Reeducando</label>
+                                            <select name="fk_id_escritor" class="form-control" id="selectCadastroResumosReeducando">
                         
-                                            <?php 
+                                            <?php
                                             //enquanto a lista não chegar no último elemento (nulo)
                                             //INÍCIO DO WHILE
                                             while($escritor = mysqli_fetch_array($busca_escritores))
                                             {
                                             ?>
-                                                <option value="<?php echo $escritor['id_escritor']?>"><?php echo $escritor['nome_escritor']?></option>
+                                                <option value="<?php echo $escritor['id_reeducando']?>"><?php echo $escritor['nome_reeducando']?></option>
                                             <?php
                                             }
                                             //FIM DO WHILE
@@ -1049,6 +1074,37 @@ deleção de qualquer entidade do banco de dados.
                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                     });
                 });
+
+                $("#pesquisaEscritoresModal").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#selectEdicaoResumosReeducando option").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+
+                $("#pesquisaAvaliadoresModal").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#selectEdicaoResumosAvaliador option").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+
+                $("#pesquisaCadastroResumosReeducandos").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#selectCadastroResumosReeducando option").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+
+                
+                $("#pesquisaCadastroResumosAvaliadores").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#selectCadastroResumoAvaliador option").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
+                });
+
+                
             });
         </script>
     </body>

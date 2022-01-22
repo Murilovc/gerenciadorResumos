@@ -24,37 +24,41 @@
         
         ?>
 
-       
-        <div style="float: left">
-            <?php 
+        <!-- possíveis: row, col, container-->
+        
+        <?php
             include_once "back-end/conexao.php";
+
+            require_once "back-end/resumo/ControleResumo.php";
+            require_once "back-end/reeducando_leitor/ControleReeducando.php";
+
+            $controle_resumo = new ControleResumo();
+            $controle_reeducando = new ControleReeducando();
+
             
             $id_avaliador = $_SESSION['id'];
             $id_resumo = $_POST['id_resumo'];
             $comentario = $_POST['comentario'];
             
-            //coletando informações do resumo
-            $query_consulta_resumo = 
-            "SELECT id_resumo, arquivo, fk_id_escritor FROM resumos WHERE id_resumo='$id_resumo' LIMIT 1";
-
-            $busca_resumo = mysqli_query($conexao, $query_consulta_resumo);
-            $resultado_resumo = mysqli_fetch_array($busca_resumo);
+            $resultado_resumo = mysqli_fetch_array($controle_resumo->pesquisar_por_id($id_resumo));
             
 
             $local = $resultado_resumo['arquivo'];
             
 
             //coletando informações do escritor
-            $id_escritor = $resultado_resumo['fk_id_escritor'];
+            $id_reeducando = $resultado_resumo['fk_id_escritor'];
 
-            $query_consulta_escritor =
-            "SELECT id_escritor, nome_escritor FROM escritores WHERE id_escritor='$id_escritor'";
-
-            $busca_escritor = mysqli_query($conexao, $query_consulta_escritor);
-            $resultado_escritor = mysqli_fetch_array($busca_escritor);
+            $resultado_reeducando = mysqli_fetch_array($controle_reeducando->pesquisar_por_id($id_reeducando));
             
-            $escritor = $resultado_escritor['nome_escritor'];
+            $escritor = $resultado_reeducando['nome_reeducando'];
             ?>
+        <!-- -->
+        <iframe src="arquivos/<?php echo $local;?>" width="1300px" height="530px">
+        </iframe>
+        
+        <div class="container">
+
 
 
             <!-- 
@@ -66,28 +70,96 @@
             -->
             
 
-            <iframe src="arquivos/<?php echo $local;?>" width="1150px" height="530px">
-            </iframe>
+
+            <form action="back-end/relatorio/CadastroRelatorio.php" method="POST">
+                
 
 
-        </div>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Resumo</th>
+                        <th>Conteúdo</th>
+                        <th>Estrutura</th>
+                        <th>Ortografia</th>
+                        <!-- não avaliado, aguardando, ativo-->
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        
+                        <!-- DESCOMENTAR QUANDO ENVIAR PARA O SERVIDOR -->
+                        <td> <a href="http://200.129.173.64/projetoNove/arquivos/<?php echo $local; ?>" target="_blank" > ver resumo</a></td>
+                        
+                        <!-- COMENTAR QUANDO ENVIAR PARA O SERVIDOR 
+                        <td> <a href="arquivos/<?php //echo $local; ?>" target="_blank" > ver resumo</a></td>-->
+                        
+                        <td> 
+                            <select class="form-control" name="nota_conteudo">
+                                <option value="0.0">0,0</option>
+                                <option value="0.5">0,5</option>
+                                <option value="1.0">1,0</option>
+                                <option value="1.5">1,5</option>
+                                <option value="2.0">2,0</option>
+                                <option value="2.5">2,5</option>
+                                <option value="3.0">3,0</option>
+                                <option value="3.5">3,5</option>
+                                <option value="4.0">4,0</option>
+                                <option value="4.5">4,5</option>
+                                <option value="5.0">5,0</option>
+                            </select>
+                        </td>
 
-        <div style="float: left;">
-            <form action="back-end/resumo/AvaliacaoResumo.php" method="POST">
-        
+                        <td>
+                            <select class="form-control" name="nota_estrutura">
+                                <option value="0.0">0,0</option>
+                                <option value="0.5">0,5</option>
+                                <option value="1.0">1,0</option>
+                                <option value="1.5">1,5</option>
+                                <option value="2.0">2,0</option>
+                            </select>
+                        </td>
+
+                        <td>
+                            <select class="form-control" name="nota_ortografia">
+                                <option value="0.0">0,0</option>
+                                <option value="0.5">0,5</option>
+                                <option value="1.0">1,0</option>
+                                <option value="1.5">1,5</option>
+                                <option value="2.0">2,0</option>
+                                <option value="2.5">2,5</option>
+                                <option value="3.0">3,0</option>
+                            </select>
+                        </td>
+                        <td>Não avaliado</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
                 <div class="form-group">
-                    <label for="inputComentario">Resumo escrito<br> por <br><?php echo $escritor;?></label>
                     
-                    <textarea rows="7" cols="20" name="comentario" type="text" class="form-control" id="inputComentario" placeholder="Comentários"><?php echo $comentario;?></textarea>
+                    <h5>Observações:</h5>
+                
+                    <textarea rows="7" cols="20" name="observacoes_relatorio" type="text" class="form-control" id="inputComentario" placeholder="Comentários"><?php echo $comentario;?></textarea>
                     
                     <input type="hidden" name="id_resumo" value="<?php echo $id_resumo?>">
                     
                 </div>
 
-                <button type="submit" class="btn btn-primary">Salvar comentário</button>
+                <button type="submit" class="btn btn-primary">Salvar relatório</button>
             </form>
-
         </div>
+        
+
+        <br>
+        <br>
+
+        <!--<div style="float: left;">-->
+
+
+        <!--</div>-->
         
         
 

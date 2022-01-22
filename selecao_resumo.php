@@ -66,9 +66,10 @@
                         <tr>
                             <th>Id</th>
                             <th>Título</th>
-                            <th>Comentario</th>
+                            <!-- Colocar aqui ao invés de só obs. também as notas-->
+                            <th>Observação</th>
                             <th>Data cadastro</th>
-                            <th>Nome do autor</th>
+                            <th>RGC do reeducando leitor</th>
                             <th>Ação avaliar</th>
                         </tr>
                     </thead>
@@ -83,6 +84,10 @@
                             <td><?php echo $resumo['titulo'];?></td>
                             <td>
                                 <?php
+                                //FALTA FAZER A RELAÇÃO ENTRE AS ENTIDADES PARA ISSO FUNCIONAR
+                                //require_once "back-end/relatorio/ControleRelatorio.php";
+                                //$controle_relatorio = new ControleRelatorio();
+                                //$relatorio = $controle_relatorio->pesquisar_por_id();
                                 $comentario = NULL;
                                 //INÍCIO DO IF
                                 if(isset($resumo['comentario']) == true){ 
@@ -123,20 +128,20 @@
                             <td><?php echo $resumo['data_cadastro'];?></td>
                             <td>
                                 <?php 
-                                $id_escritor = $resumo['fk_id_escritor'];
+                                $id_reeducando = $resumo['fk_id_escritor'];
 
                                 //consulta para retornar o nome de um escritor baseado em id
                                 $query_escritor = 
-                                "SELECT nome_escritor, id_escritor
-                                FROM escritores
-                                WHERE id_escritor='$id_escritor'
+                                "SELECT rgc_reeducando, id_reeducando
+                                FROM reeducandos
+                                WHERE id_reeducando='$id_reeducando'
                                 ";
 
                                 $busca_escritor = mysqli_query($conexao, $query_escritor);
 
                                 $escritor = mysqli_fetch_array($busca_escritor);
 
-                                echo $escritor['nome_escritor'];
+                                echo $escritor['rgc_reeducando'];
                                 ?>
                             </td>
                             <td>
