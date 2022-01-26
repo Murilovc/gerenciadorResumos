@@ -6,6 +6,10 @@
         <br>
 
         <section class="">
+            
+               <div class="text-center">
+            <img class="mx-auto d-block" src="images/apoio.png"  >
+        </div>
             <!-- Footer -->
             <footer class="text-bottom text-white" style="background-color: #00BFFF;">
                 <!-- Grid container -->

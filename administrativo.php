@@ -26,13 +26,6 @@ deleção de qualquer entidade do banco de dados.
         <?php include "back-end/menu.php"?>
 
         <?php 
-        session_start();
-        if(!empty($_SESSION['id']) && $_SESSION['nivel'] == 0){
-            echo "Entrada bem-sucedida, ".$_SESSION['nome'];
-        }else{
-            $_SESSION['msg'] = "Realize o login para continuar!";
-            header("Location: login.php");
-        }
         
         require_once "back-end/avaliador/ControleAvaliador.php";
         require_once "back-end/reeducando_leitor/ControleReeducando.php";
@@ -48,15 +41,32 @@ deleção de qualquer entidade do banco de dados.
         ?>
     
         <div class="container">    
+        
+        <div class"text-right">
+        <?php 
+              session_start();
+            if(!empty($_SESSION['id']) && $_SESSION['nivel'] != 0){
+                $_SESSION['msg'] = "Realize o login para continuar!";
+                header("Location: login.php");
+            }
+        ?>
+        </div>
             <!-- significa margin-top 4-->
             <div class="row mt-4">
                 <div class="col">
-                    <h3 class="text-primary">Olá administrador!<br>
-                    Selecione uma entidade para começar...<br><br>
-                    <h3>
+                    <h4 class="text-primary">Olá <?php echo $_SESSION['nome']; ?>!<br>
+                    Selecione uma opção para começar...<br><br>
+                    <h4>
                 </div>
             </div>
-        
+              <div class="row mt-4">
+                <div class="col">
+                    Clique <a href="http://apps-proex.ufac.br/projetoNove/listagem_relatorios.php" target="_blank" >AQUI</a> para ver TODAS as avaliações do DIRETOR<br>
+                    <h4>
+                </div>
+            </div>
+            <hr>
+        <p>Segue abaixo a parte administrativa do site - CADASTROS - EDIÇÕES  e mudanças necessárias</p>
             <!--
                 *********************BOTÃO COLLAPSE AVALIADORES*************************
                 Quando o usuário clicar neste botão, serão exibidas as opções de
@@ -90,13 +100,13 @@ deleção de qualquer entidade do banco de dados.
                         <table class="table table-striped">
                             <thead class="thead thead-dark">
                                 <tr>
-                                    <th>Id</th>
+                                  
                                     <th>Nome</th>
                                     <th>Telefone</th>
                                     <th>Email</th>
                                     <th>Instituição</th>
                                     <th>Editar</th>
-                                    <th>Apagar</th>
+                                  
                                 </tr>
                             </thead>
                             <tbody id="tabelaAvaliadores">
@@ -117,7 +127,7 @@ deleção de qualquer entidade do banco de dados.
                                     {
                                 ?>
                                 <tr>
-                                    <td scope="row"><?php echo $retorno_cadastro['id_avaliador'];?></td>
+                                   
                                     <td><?php echo $retorno_cadastro['nome_avaliador'];?></td>
                                     
                                     <?php 
@@ -143,14 +153,7 @@ deleção de qualquer entidade do banco de dados.
                                         </button>
                                     </td>
                                         
-                                    <td>
-                                        <!-- BOTÃO EXCLUIR AVALIADOR -->
-                                        <form action="back-end/avaliador/DelecaoAvaliador.php" method="post">
-                                            <input type="hidden" name="id_avaliador" value="<?php echo $retorno_cadastro['id_avaliador'];?>">
-
-                                            <input type="submit" value="Excluir" class="btn btn-danger">
-                                        </form>
-                                    </td>
+                                  
                                 </tr>
 
                                 <!-- aqui vai a janela modal de edicao -->
@@ -188,6 +191,11 @@ deleção de qualquer entidade do banco de dados.
                                                     <div class="form-group">
                                                         <label for="inputSenha">Senha</label>
                                                         <input type="text" name="senha_avaliador" value="" class="form-control" id="inputSenha">
+
+                                                    </div>
+                                                      <div class="form-group">
+                                                        <label for="inputinstituicao">Instituição</label>
+                                                        <input type="text" name="instituicao" value="<?php echo $retorno_cadastro['instituicao_avaliador']; ?>" class="form-control" id="inputinstituicao">
 
                                                     </div>
                                                     
@@ -252,12 +260,12 @@ deleção de qualquer entidade do banco de dados.
                         <table class="table table-striped">
                             <thead class="thead thead-dark">
                                 <tr>
-                                    <th>Id</th>
+                                   
                                     <th>Nome</th>
                                     <th>RGC</th>
                                     <th>Data cadastro</th>
                                     <th>Editar</th>
-                                    <th>Desativar</th>
+                                   
                                 </tr>
                             </thead>
                             <tbody id="tabelaEscritores">
@@ -278,26 +286,19 @@ deleção de qualquer entidade do banco de dados.
                                     {
                                 ?>
                                 <tr>
-                                    <td scope="row"><?php echo $reeducando['id_reeducando'];?></td>
+                                  
                                     <td><?php echo $reeducando['nome_reeducando'];?></td>
                                     <td><?php echo $reeducando['rgc_reeducando'];?></td>
                                     <td><?php echo $reeducando['data_cadastro'];?></td>
                                         
                                     <td>
-                                        <!-- BOTÃO EDITAR AVALIADOR -->
+                                        <!-- BOTÃO EDITAR  -->
                                         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalEscritoresEdicao<?php echo $reeducando['id_reeducando'];?>">
                                             Editar
                                         </button>
                                     </td>
                                         
-                                    <td>
-                                        <!-- BOTÃO EXCLUIR AVALIADOR -->
-                                        <form action="back-end/escritor/DelecaoReeducando.php" method="post">
-                                            <input type="hidden" name="id_escritor" value="<?php echo $reeducando['id_reeducando'];?>">
-
-                                            <input type="submit" value="Desativar" class="btn btn-danger">
-                                        </form>
-                                    </td>
+                                  
                                 </tr>
 
                                 <!-- aqui vai a janela modal de edicao -->
@@ -314,12 +315,16 @@ deleção de qualquer entidade do banco de dados.
 
                                             <!-- Modal body -->
                                             <div class="modal-body">
-                                                <form action="back-end/escritor/EdicaoReeducando.php" method="post">
-                                                    <input type="hidden" name="id_escritor" value="<?php echo $reeducando['id_reeducando'];?>">
+                                                <form action="back-end/reeducando_leitor/EdicaoReeducando.php" method="post">
+                                                    <input type="hidden" name="id_reeducando" value="<?php echo $reeducando['id_reeducando'];?>">
 
                                                     <div class="form-group">
                                                         <label for="inputNome">Nome</label>
-                                                        <input type="text" name="nome_escritor" value="<?php echo $reeducando['nome_reeducando']; ?>" class="form-control">
+                                                        <input type="text" name="nome_reeducando" value="<?php echo $reeducando['nome_reeducando']; ?>" class="form-control">
+                                                    </div>
+                                                      <div class="form-group">
+                                                        <label for="inputRGC">RGC</label>
+                                                        <input type="text" name="rgc_reeducando" value="<?php echo $reeducando['rgc_reeducando']; ?>" class="form-control">
                                                     </div>
                                                     
                                                     <input type="submit" value="Salvar edição" class="btn btn-warning">
@@ -385,14 +390,14 @@ deleção de qualquer entidade do banco de dados.
                         <table class="table table-striped">
                             <thead class="thead thead-dark">
                                 <tr>
-                                    <th>Id</th>
+                                
                                     <th>Título</th>
-                                    <th>Escritor</th>
+                                    <th>Reeducando</th>
                                     <th>Avaliação</th>
-                                    <th>Ver arquivo</th>
+                                    <th>Arquivo</th>
                                     <th>Data</th>
                                     <th>Editar</th>
-                                    <th>Apagar</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody id="tabelaResumos">
@@ -415,7 +420,7 @@ deleção de qualquer entidade do banco de dados.
                                 
                                 <tr>
                                     <!-- LISTAGEM DOS RESUMOS -->
-                                    <td scope="row"><?php echo $resumo['id_resumo'];?></td>
+                                   
                                     <td><?php echo $resumo['titulo'];?></td>
                                     <td>
                                          
@@ -479,18 +484,8 @@ deleção de qualquer entidade do banco de dados.
                                     </td>
                                    
                                     <td>
-                                        <!-- BOTÃO VER RESUMO -->
-                                        <!-- Não faz sentido usar POST sem ter um botao submit-->
-                                        <form action="visualizador.php" method="post">
-                                            <input type="hidden" name="arquivo" value="<?php $resumo['arquivo'];?>">
-                                            
-                                            <?php 
-                                            $path = "http://200.129.173.64/projetoNove/visualizador.php";
-                                            //$path = $path."/".$resumo['id_resumo'];
-                                            ?>
-                                            
-                                            <a href="<?php echo $path?>" target="_blank" rel="noreferrer">Ver</a>
-                                        </form>   
+
+                                          <a href="http://apps-proex.ufac.br/projetoNove/arquivos/<?php echo $resumo['arquivo']; ?>" target="_blank" >ver</a>  
                                     </td>
 
                                     
@@ -504,16 +499,6 @@ deleção de qualquer entidade do banco de dados.
                                         </button>
                                     </td>
                                         
-                                    <td>
-                                        <!-- BOTÃO EXCLUIR RESUMO -->
-                                        <form action="back-end/resumo/DelecaoResumo.php" method="post">
-                                            <input type="hidden" name="id_resumo" value="<?php echo $resumo['id_resumo'];?>">
-
-                                            <input type="hidden" name="arquivo" value="<?php echo $resumo['arquivo'];?>">
-
-                                            <input type="submit" value="Excluir" class="btn btn-danger">
-                                        </form>
-                                    </td>
                                 </tr>
 
                                 <!-- aqui vai a janela modal de edicao -->
@@ -666,13 +651,13 @@ deleção de qualquer entidade do banco de dados.
                         <table class="table table-striped">
                             <thead class="thead thead-dark">
                                 <tr>
-                                    <th>Id</th>
+                                 
                                     <th>Nome</th>
                                     <th>Email</th>
                                     <th>Nível de privilégio</th>
                                     <th>Data cadastro</th>
                                     <th>Editar</th>
-                                    <th>Apagar</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody id="tabelaUsuarios">
@@ -691,7 +676,7 @@ deleção de qualquer entidade do banco de dados.
                                     {
                                 ?>
                                 <tr>
-                                    <td scope="row"><?php echo $usuario['id_usuario'];?></td>
+                                   
                                     <td><?php echo $usuario['nome_usuario'];?></td>
                                     <td><?php echo $usuario['email_usuario'];?></td>
                                     <td><?php echo $usuario['nivel_usuario'];?></td>
@@ -704,14 +689,7 @@ deleção de qualquer entidade do banco de dados.
                                         </button>
                                     </td>
                                         
-                                    <td>
-                                        <!-- BOTÃO EXCLUIR USUÁRIO -->
-                                        <form action="back-end/usuario/DelecaoUsuario.php" method="post">
-                                            <input type="hidden" name="id_usuario" value="<?php echo $usuario['id_usuario'];?>">
-
-                                            <input type="submit" value="Excluir" class="btn btn-danger">
-                                        </form>
-                                    </td>
+                                 
                                 </tr>
 
                                 <!-- aqui vai a janela modal de edicao -->
@@ -751,8 +729,9 @@ deleção de qualquer entidade do banco de dados.
                                                     <div class="form-group">
                                                         <label for="inputNivel">Nível de privilégio</label>
                                                         <select name="nivel_usuario" class="form-control">
-                                                            <option value="1">1 (Upload de arquivos)</option>
-                                                            <option value="0">0 (Administrador do Banco de Dados)</option>
+                                                            <option value="4">Diretor</option>
+                                                            <option value="1">Estagiários</option>
+                                                            <option value="0">Administrador</option>
                                                         </select>
                                                     </div>
 
@@ -832,11 +811,7 @@ deleção de qualquer entidade do banco de dados.
                                                 <label for="inputInstuicao">Instituição</label>
                                                 <input name="instituicao_avaliador" type="name" class="form-control" id="inputInstuicao" placeholder="Universidade Federal do Acre">
                                             </div>
-                                            <div class="form-group">
-                                                <label for="inputTermo">Aceitar termo</label>
-                                                <a href="http://200.129.173.64/projetoNove/arquivos/termocompromisso.pdf" target="_blank">Ver termo</a>
-                                                <input name="termo_avaliador" type="checkbox" class="form-control" id="inputTermo">
-                                            </div>
+                                          
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -1014,8 +989,9 @@ deleção de qualquer entidade do banco de dados.
                                     <div class="form-group">
                                         <label for="inputNome">Nível de privilégio</label>
                                             <select name="nivel_usuario" class="form-control">
-                                                <option value="1">1 (Upload de arquivos)</option>
-                                                <option value="0">0 (Administrador do Banco de Dados)</option>
+                                                <option value="4">Diretor</option>
+                                                <option value="1">Estagiários</option>
+                                                <option value="0">Administrador</option>
                                             </select>
                                     </div>
                                     

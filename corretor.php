@@ -1,3 +1,7 @@
+ <?php 
+        session_start();
+?>
+
 <!doctype html>
 <html lang="en">
     <head>
@@ -12,18 +16,24 @@
     <body>
       
         <?php include "back-end/menu.php"?>
+        
+        <div class="container mt-3">
 
         <?php 
-        session_start();
-        if(!empty($_SESSION['id']) && $_SESSION['nivel'] == 2){
-            echo "Logado como ".$_SESSION['nome'];
+       
+        if(!empty($_SESSION['id']) && ($_SESSION['nivel'] == 3) ){
+            echo "Logado como avaliador(a) ".$_SESSION['nome'];
+            
         }else{
             $_SESSION['msg'] = "Realize o login para continuar!";
-            header("Location: login.php");
+           header("Location: login.php");
+          
         }
         
         ?>
-
+        
+        </div>
+<br>
         <!-- possíveis: row, col, container-->
         
         <?php
@@ -42,10 +52,8 @@
             
             $resultado_resumo = mysqli_fetch_array($controle_resumo->pesquisar_por_id($id_resumo));
             
-
             $local = $resultado_resumo['arquivo'];
             
-
             //coletando informações do escritor
             $id_reeducando = $resultado_resumo['fk_id_escritor'];
 
@@ -54,12 +62,10 @@
             $escritor = $resultado_reeducando['nome_reeducando'];
             ?>
         <!-- -->
-        <iframe src="arquivos/<?php echo $local;?>" width="1300px" height="530px">
-        </iframe>
         
+  <iframe src="arquivos/<?php echo $local;?>" width="100%" height="600px"> </iframe>   
+  
         <div class="container">
-
-
 
             <!-- 
             Os dois pontos antes do nome são necessários porque o endereço
@@ -78,23 +84,14 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Resumo</th>
                         <th>Conteúdo</th>
                         <th>Estrutura</th>
                         <th>Ortografia</th>
-                        <!-- não avaliado, aguardando, ativo-->
-                        <th>Status</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        
-                        <!-- DESCOMENTAR QUANDO ENVIAR PARA O SERVIDOR -->
-                        <td> <a href="http://200.129.173.64/projetoNove/arquivos/<?php echo $local; ?>" target="_blank" > ver resumo</a></td>
-                        
-                        <!-- COMENTAR QUANDO ENVIAR PARA O SERVIDOR 
-                        <td> <a href="arquivos/<?php //echo $local; ?>" target="_blank" > ver resumo</a></td>-->
-                        
+
                         <td> 
                             <select class="form-control" name="nota_conteudo">
                                 <option value="0.0">0,0</option>
@@ -132,7 +129,6 @@
                                 <option value="3.0">3,0</option>
                             </select>
                         </td>
-                        <td>Não avaliado</td>
                     </tr>
 
                     </tbody>
@@ -145,6 +141,7 @@
                     <textarea rows="7" cols="20" name="observacoes_relatorio" type="text" class="form-control" id="inputComentario" placeholder="Comentários"><?php echo $comentario;?></textarea>
                     
                     <input type="hidden" name="id_resumo" value="<?php echo $id_resumo?>">
+                    <input type="hidden" name="id_reeducando" value="<?php echo $id_reeducando ?>">
                     
                 </div>
 

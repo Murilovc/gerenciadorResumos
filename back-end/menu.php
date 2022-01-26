@@ -21,31 +21,28 @@
                 https://fontawesome.com/v5.15/how-to-use/on-the-web/referencing-icons/basic-use
                 para os detalhes de uso.
                 -->
-
-                <li class="nav-item" aligh="text-center">
-                    <span class="fa fa-sign-in" style="color: White;" aria-hidden="true"></span>
-                </li>
-                <li class="nav-item" aligh="text-center"><a class="nav-link" href="index.php">Início</a></li>
+                <?php
                 
-                <li class="nav-item">
-                    <span class="fa fa-comment" style="color: White;" aria-hidden="true"></span>
-                </li>
-                <li class="nav-item"><a class="nav-link" href="selecao_resumo.php">Sala de Correção</a></li>
+                ini_set('display_errors', 0 );
+                error_reporting(0);
 
-                <li class="nav-item">
-                    <span class="fa fa-upload" style="color: White;" aria-hidden="true"></span>
-                </li>
-                <li class="nav-item"><a class="nav-link" href="envio_arquivo.php">Fazer upload</a></li>
+                session_start();
+                if($_SESSION['nivel'] == 0 ){ ?>
+                   <li class="nav-item"><a class="nav-link" href="administrativo.php"> <span class="fa fa-home mr-2" style="color: White;" aria-hidden="true"></span>Início</a></li>
+               <?php } ?>
                 
-                <li class="nav-item">
-                    <span class="fa fa-cog" style="color: White;" aria-hidden="true"></span>
-                </li>
-                <li class="nav-item"><a class="nav-link" href="administrativo.php">Administrativo</a></li>
 
-                <li class="nav-item">
-                    <span class="fa fa-sign-out" style="color: White" aria-hidden="true"></span>
-                </li>
-                <li class="nav-item"><a class="nav-link" href="sair.php">Sair</a></li>
+                  <?php
+                
+                if(($_SESSION['nivel'] == 3) ){ ?>
+                <li class="nav-item"><a class="nav-link" href="selecao_resumo.php"> <span class="fa fa-comment mr-2" style="color: White;" aria-hidden="true"></span>Sala de Correção</a></li>
+                
+                 <li class="nav-item"><a class="nav-link" href="listagem_relatorios.php"> <span class="fa fa-book mr-2" style="color: White;" aria-hidden="true"></span>Relatórios</a></li>
+                 
+                 <?php } ?>
+                 
+
+                <li class="nav-item"><a class="nav-link" href="sair.php"><span class="fa fa-sign-out mr-2" style="color: White" aria-hidden="true"></span>Sair</a></li>
             </ul>
         </div>
     </div>

@@ -12,10 +12,12 @@
 <body>
     <?php include "back-end/menu.php"?>
 
+
+ <div class="container">   
     <?php 
     session_start();
-    if(!empty($_SESSION['id']) && $_SESSION['nivel'] <= 1){
-        echo "Entrada bem-sucedida, ".$_SESSION['nome'];
+    if(!empty($_SESSION['id']) && (($_SESSION['nivel'] == 0) or ($_SESSION['nivel'] == 1))){
+        echo "Olá, ".$_SESSION['nome'];
     }else{
         $_SESSION['msg'] = "Realize o login para continuar!";
         header("Location: login.php");
@@ -26,10 +28,10 @@
     ?>
     <div class="row mt-4">
         <div class="col text-left">
-            <h3 class="text-primary">
-                Upload de resumos em .pdf<br><br>
+            <h4 class="text-primary">
+                Upload de resumos em .pdf<br>
                 Preencha as informações e anexe o arquivo do resumo
-            </h3>
+            </h4>
             
             <form enctype="multipart/form-data" action="./back-end/resumo/CadastroResumo.php" method="POST">
                 
@@ -39,12 +41,12 @@
                     
                     <div class="form-group">
                         <label for="exampleInputTitulo">Título</label>
-                        <input name="titulo" type="name" class="form-control" id="exampleInputTitulo">
+                        <input name="titulo" type="name" class="form-control" id="exampleInputTitulo" Required>
                     </div>
                     
                     <?php
                     $query_listar = 
-                    "SELECT * FROM escritores";
+                    "SELECT * FROM reeducandos";
 
                     $buscar_escritores = mysqli_query($conexao, $query_listar);
 
@@ -52,15 +54,15 @@
                     ?>
                     <div class="form-group">
                         <label for="exampleInputNome">Nome do Escritor</label>
-                        <select name="fk_id_escritor" class="form-control">
-    
+                        <select name="fk_id_escritor" class="form-control" Required>
+                        <option value="">Selecione abaixo</option>
                         <?php 
                         //enquanto a lista não chegar no último elemento (nulo)
                         //INÍCIO DO WHILE
                         while($retorno_cadastro = mysqli_fetch_array($buscar_escritores))
                         {
                             ?>
-                            <option value="<?php echo $retorno_cadastro['id_escritor']?>"><?php echo $retorno_cadastro['nome_escritor']?></option>
+                            <option value="<?php echo $retorno_cadastro['id_reeducando']?>"><?php echo $retorno_cadastro['nome_reeducando']?></option>
                             <?php
                         }
                         //FIM DO WHILE
@@ -79,8 +81,8 @@
                     ?>
                     <div class="form-group">
                         <label for="exampleInputNome">Quem deve avaliar este resumo?</label>
-                        <select name="fk_id_avaliador" class="form-control">
-    
+                        <select name="fk_id_avaliador" class="form-control" Required>
+                            <option value="">Selecione abaixo</option>
                         <?php 
                         //enquanto a lista não chegar no último elemento (nulo)
                         //INÍCIO DO WHILE
@@ -104,7 +106,7 @@
 
                     <div class="form-group">
                         <label for="exampleFormControlFile1">Arquivo</label>
-                        <input name="arquivo" type="file" class="form-control-file">
+                        <input name="arquivo" type="file" class="form-control-file" Required>
 
 
                     </div>
@@ -118,6 +120,9 @@
 
         </div>
     </div>
+
+
+</div>
 
     <?php include "rodape.php";?>
 

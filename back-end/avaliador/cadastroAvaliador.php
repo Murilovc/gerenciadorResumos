@@ -46,7 +46,8 @@ include "../conexao.php";
             now(),
             '$senha_cripto',
             '$instituicao',
-            '$termo'
+            '$termo',
+            '3'
         )";
 
         $cadastrar_avaliador = mysqli_query($conexao, $query_cadastrar) or die(mysqli_error($conexao));

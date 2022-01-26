@@ -7,6 +7,7 @@ include '../conexao.php';
     $telefone = $_POST['telefone'];
     $email = $_POST['email'];
     $senha = $_POST['senha_avaliador'];
+    $instituicao = $_POST['instituicao'];
 
     /*Se a pessoa não escolheu uma nova senha, então a antiga será
     mantida*/
@@ -15,7 +16,8 @@ include '../conexao.php';
         "UPDATE avaliadores SET
             nome_avaliador = '$nome',
             telefone = '$telefone',
-            email = '$email'
+            email = '$email',
+            instituicao_avaliador = '$instituicao'
         WHERE   id_avaliador = '$id'
         ";
     } else{
@@ -25,7 +27,8 @@ include '../conexao.php';
             nome_avaliador = '$nome',
             telefone = '$telefone',
             email = '$email',
-            senha_avaliador = '$senha_cripto'
+            senha_avaliador = '$senha_cripto',
+            instituicao_avaliador = '$instituicao'
         WHERE   id_avaliador = '$id'
         ";
     }

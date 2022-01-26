@@ -1,15 +1,17 @@
 <?php
-     
+
+
     class ControleRelatorio {
 
-        function ControleRelatorio(){
-            set_include_path("./");
-        }
+        // function ControleRelatorio(){
+        //     set_include_path("./");
+        // }
         
         public function pesquisar_por_id($id_relatorio)
         {
-            //precisamos ter acesso a conexao
-            include "back-end/conexao.php";
+            
+             //precisamos ter acesso a conexao
+            include "../back-end/conexao.php";
             
             $query_relatorio = 
             "SELECT id_relatorio,
@@ -28,8 +30,9 @@
 
         public function pegar_todos()
         {
-            //precisamos ter acesso a conexao
-            include "back-end/conexao.php";
+
+ //precisamos ter acesso a conexao
+            include "../back-end/conexao.php";
             
             $query_listar = 
             "SELECT * FROM relatorios";

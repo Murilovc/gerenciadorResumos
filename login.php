@@ -13,7 +13,7 @@ session_start();
 	
         
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<title>Bootstrap Elegant Account Login Form with Avatar Icon</title>
+		<title>Login</title>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merienda+One">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -133,6 +133,13 @@ session_start();
 				<div class="form-group">
 					<input type="password" name="senha" class="form-control" placeholder="Senha" required="required">
 				</div>
+				  <div class="form-group">
+				      <div class="row">
+				          <div class="col-2"> <input name="termo_avaliador" type="checkbox" class="form-control" id="inputTermo" required="required"></div>
+				          <div class="col-10">Declaro que  <a href="http://apps-proex.ufac.br/projetoNove/arquivos/termocompromisso.pdf" target="_blank">li e aceito</a> os termos apresentados</div>
+				      </div>
+                       
+                </div>
 				<input type="submit" name="btnLogin" class="btn btn-primary btn-block btn-lg" value="Acessar">              
 			</div>
 		</form>			

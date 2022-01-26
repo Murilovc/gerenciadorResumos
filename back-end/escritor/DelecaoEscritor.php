@@ -2,11 +2,11 @@
 
 include "../conexao.php";
 
-    $id = $_POST['id_reeducando'];
+    $id = $_POST['id_escritor'];
 
     $query_deletar =
-    "DELETE FROM reeducando
-     WHERE id_reeducando = '$id'
+    "DELETE FROM escritores
+     WHERE id_escritor = '$id'
     ";
 
     $deletar_escritor = mysqli_query($conexao, $query_deletar);

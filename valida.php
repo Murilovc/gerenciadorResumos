@@ -13,7 +13,7 @@ if($btnLogin){
         // gerar a senha criptografada
        // echo password_hash($senha, PASSWORD_DEFAULT);
        //Pesquisar o usuario no bd
-       $query_avaliador = "SELECT id_avaliador, nome_avaliador, email, senha_avaliador 
+       $query_avaliador = "SELECT id_avaliador, nome_avaliador, email, senha_avaliador, nivel 
                           FROM avaliadores 
                           WHERE email='$email'
                           LIMIT 1";
@@ -29,12 +29,12 @@ if($btnLogin){
         if($resultado_avaliador){
            $row_avaliador = mysqli_fetch_assoc($resultado_avaliador);
            if(password_verify($senha, $row_avaliador ['senha_avaliador'])){
-                //quando a página estiver pronta, redirecionar para selecao_resumo.php
-                header("Location: selecao_resumo.php");
+                
                 $_SESSION['id'] = $row_avaliador  ['id_avaliador'];
                 $_SESSION['nome'] = $row_avaliador  ['nome_avaliador'];
                 $_SESSION['email'] = $row_avaliador  ['email'];
-                $_SESSION['nivel'] = 2;
+                $_SESSION['nivel'] = $row_avaliador  ['nivel'];
+                header("Location: selecao_resumo.php");
                 return;
            }
         }
@@ -54,9 +54,14 @@ if($btnLogin){
                     $_SESSION['nivel'] = $row_usuario['nivel_usuario'];
                     header("Location: administrativo.php");
                 //senão é o assistente de envio de arquivos
-                } else {
+                }
+                if($tipo === 1){
                     $_SESSION['nivel'] = $row_usuario['nivel_usuario'];
                     header("Location: envio_arquivo.php");
+                }
+                if($tipo === 4){
+                    $_SESSION['nivel'] = $row_usuario['nivel_usuario'];
+                    header("Location: listagem_relatorios.php");
                 }
                 
             }else{
