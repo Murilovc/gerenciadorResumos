@@ -32,6 +32,12 @@
         
         ?>
         
+        <form>
+            <input type="button" value="Imprimir página" onClick="window.print()"/>
+        </form>
+        
+        
+        
         </div>
 <br>
         <!-- possíveis: row, col, container-->

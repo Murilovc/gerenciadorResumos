@@ -485,7 +485,13 @@ deleção de qualquer entidade do banco de dados.
                                    
                                     <td>
 
-                                          <a href="http://apps-proex.ufac.br/projetoNove/arquivos/<?php echo $resumo['arquivo']; ?>" target="_blank" >ver</a>  
+                                          <!--
+                                              DESCOMENTAR QUANDO ENVIAR PARA O SERVIDOR
+                                          <a href="http://apps-proex.ufac.br/projetoNove/arquivos/<?php //echo $resumo['arquivo']; ?>" target="_blank" >ver</a> -->
+                                          
+                                          <!-- COMENTAR QUANDO ENVIAR PARA O SERVIDOR -->
+                                          <a href="./arquivos/<?php echo $resumo['arquivo'];?>" target="_blank" >Ver</a>
+                                          
                                     </td>
 
                                     

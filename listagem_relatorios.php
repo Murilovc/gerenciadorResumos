@@ -123,7 +123,12 @@
                     <td><?php echo $relatorio['nota_estrutura'];?></td>
                     <td><?php echo $relatorio['nota_ortografia'];?></td>
                     <td><?php echo $relatorio['observacoes_relatorio'];?></td>
-                    <td class="text-primary"> <a href="http://apps-proex.ufac.br/projetoNove/arquivos/<?php echo $nomeresumos['arquivo']; ?>" target="_blank" >ver</a> </td>
+                    
+                    <!-- DESCOMENTAR QUANDO ENVIAR PARA O SERVIDOR 
+                    <td class="text-primary"> <a href="http://apps-proex.ufac.br/projetoNove/arquivos/<?php //echo $nomeresumos['arquivo']; ?>" target="_blank" >ver</a> </td>-->
+                    
+                    <!-- COMENTAR QUANDO ENVIAR PARA O SERVIDOR -->
+                    <td class="text-primary"> <a href="./arquivos/<?php echo $nomeresumos['arquivo']; ?>" target="_blank" >ver</a> </td>
                     <td><?php echo $relatorio['data_cadastro'];?></td>
                         
                         <?php if($_SESSION['nivel'] == 3 or $_SESSION['nivel'] == 1){ }else{ ?>                
