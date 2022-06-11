@@ -2,7 +2,8 @@
      
     class ControleUsuario {
 
-        function ControleUsuario(){
+        function ControleUsuario()
+        {
             set_include_path("./");
         }
         
