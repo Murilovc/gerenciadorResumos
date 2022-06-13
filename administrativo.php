@@ -123,7 +123,7 @@ deleção de qualquer entidade do banco de dados.
               $busca_avaliadores = $controle_avaliador->pegar_todos();
 
 
-              //enquanto a lista não chegar no último lemento (nulo)
+              //enquanto a lista não chegar no último elemento (nulo)
               while ($retorno_cadastro = mysqli_fetch_array($busca_avaliadores)) {
               ?>
                 <tr>
@@ -190,7 +190,7 @@ deleção de qualquer entidade do banco de dados.
 
                           <div class="form-group">
                             <label for="inputSenha">Senha</label>
-                            <input type="text" name="senha_avaliador" value="" class="form-control" id="inputSenha">
+                            <input type="password" name="senha_avaliador" value="" class="form-control" id="inputSenha">
 
                           </div>
                           <div class="form-group">
@@ -534,15 +534,8 @@ deleção de qualquer entidade do banco de dados.
 
 
                           <?php
-                          /*************************AQUI *************************
-                           * Fazer uma barra de pesquisa para poder selecionar o escritor
-                           * por meio dela, ao invés de ter que navegar por todos os nomes.
-                           * 
-                           */
-
 
                           $busca_escritores = $controle_escritor->pegar_todos();
-
 
                           ?>
                           <div class="form-group">
@@ -579,7 +572,7 @@ deleção de qualquer entidade do banco de dados.
                               while ($avaliador = mysqli_fetch_array($busca_avaliadores)) {
                               ?>
                                 <!-- value é o valor que será retornado deste seletor quando o 
-                                                        formulário for enviado. -->
+                                formulário for enviado. -->
                                 <option value="<?php echo $avaliador['id_avaliador'] ?>">
                                   <!-- Isto é o que será exibido para o usuário selecionar-->
                                   <?php echo $avaliador['nome_avaliador'] ?>
@@ -620,11 +613,11 @@ deleção de qualquer entidade do banco de dados.
     <br>
 
     <!--
-                *********************BOTÃO COLLAPSE USUÁRIOS**************************
-                Quando o usuário clicar neste botão, serão exibidas as opções de
-                cadastro, edição e deleção, por meio de uma listagem em forma de tabela.
-                ************************************************************************
-            -->
+    *********************BOTÃO COLLAPSE USUÁRIOS**************************
+    Quando o usuário clicar neste botão, serão exibidas as opções de
+    cadastro, edição e deleção, por meio de uma listagem em forma de tabela.
+    ************************************************************************
+    -->
 
     <button data-toggle="collapse" data-target="#collapseUsuarios" class="btn btn-success btn-block">Usuários do sistema</button>
 
@@ -764,25 +757,25 @@ deleção de qualquer entidade do banco de dados.
 
 
     <!--
-                ************* MODAIS DE CADASTRO***************************
+    ********************* MODAIS DE CADASTRO*****************************
                 
-                Na tag header seguinte, estão as janelas modais com formulários para
-                cadastro e edição das entidades.
-                Cada modal tem formulário com ação que interage com o back-end.
+    Na tag header seguinte, estão as janelas modais com formulários para
+    cadastro e edição das entidades.
+    Cada modal tem formulário com ação que interage com o back-end.
                 
-                ***********************************************************
-            --->
+    *********************************************************************
+    --->
 
 
     <header>
       <!-- 
-                    MODAL PARA FORMULÁRIO DE AVALIADORES 
-                -->
+      MODAL PARA FORMULÁRIO DE AVALIADORES 
+      -->
       <div class="modal fade" id="modalAvaliadores" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
 
           <!--Formulário que será puxado pelo método $_POST e depois tratado
-                        na classe CadastroAvaliador.php-->
+          na classe CadastroAvaliador.php-->
           <form action="./back-end/avaliador/CadastroAvaliador.php" method="POST">
             <div class="modal-content">
               <div class="modal-header">
@@ -807,7 +800,7 @@ deleção de qualquer entidade do banco de dados.
                   </div>
                   <div class="form-group">
                     <label for="inputSenha">Senha</label>
-                    <input name="senha_avaliador" type="name" class="form-control" id="inputSenha" placeholder="senha">
+                    <input name="senha_avaliador" type="password" class="form-control" id="inputSenha" placeholder="senha">
                   </div>
                   <div class="form-group">
                     <label for="inputInstuicao">Instituição</label>

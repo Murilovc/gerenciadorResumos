@@ -7,14 +7,14 @@ include "../conexao.php";
     recebidas pela classe de outro lugar.
     */
 
-    if(empty($resultado_avaliadores) && empty($resultado_usuarios) && $_POST['termo_avaliador']){
+    if(empty($resultado_avaliadores) && empty($resultado_usuarios)){
         
         $nome = $_POST['nome_avaliador'];
         $telefone = $_POST['telefone'];
         $email = $_POST['email'];
         $senha = $_POST['senha_avaliador'];
         $instituicao = $_POST['instituicao_avaliador'];
-        $termo = "aceito";
+        //$termo = "aceito";
     
         $query_email_avaliadores =
         "SELECT email FROM avaliadores WHERE email='$email'";
@@ -46,7 +46,7 @@ include "../conexao.php";
             now(),
             '$senha_cripto',
             '$instituicao',
-            '$termo',
+            null,
             '3'
         )";
 
