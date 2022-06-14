@@ -62,12 +62,17 @@ deleção de qualquer entidade do banco de dados.
     </div>
     <div class="row mt-4">
       <div class="col">
-        Clique <a href="http://apps-proex.ufac.br/projetoNove/listagem_relatorios.php" target="_blank">AQUI</a> para ver TODAS as avaliações do DIRETOR<br>
+        <!--DESCOMENTAR SE ENVIAR PARA O SERVIDOR
+          Clique <a type="button" class="btn-primary" href="http://apps-proex.ufac.br/projetoNove/listagem_relatorios.php" target="_blank">AQUI</a> para ver TODAS as avaliações do DIRETOR<br>
+        -->
+        <!-- 
+          Clique <a type="button" class="btn-primary" href="listagem_relatorios.php" target="_blank">AQUI</a> para ver TODAS as avaliações do DIRETOR<br>
+        -->
         <h4>
       </div>
     </div>
     <hr>
-    <p>Segue abaixo a parte administrativa do site - CADASTROS - EDIÇÕES e mudanças necessárias</p>
+    <p></p>
     <!--
     *********************BOTÃO COLLAPSE AVALIADORES*************************
     Quando o usuário clicar neste botão, serão exibidas as opções de
@@ -652,7 +657,7 @@ deleção de qualquer entidade do banco de dados.
                 <th>Email</th>
                 <th>Nível de privilégio</th>
                 <th>Data cadastro</th>
-                <th>Editar</th>
+                <th>Ações</th>
 
               </tr>
             </thead>
@@ -682,9 +687,14 @@ deleção de qualquer entidade do banco de dados.
                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalUsuariosEdicao<?php echo $usuario['id_usuario']; ?>">
                       Editar
                     </button>
+                    <!-- BOTÃO EXCLUIR USUÁRIO -->
+                    <form action="back-end/usuario/DelecaoUsuario.php" method="post">
+                      <input type="hidden" name="id_usuario" value="<?php echo $usuario['id_usuario'];?>">
+
+                      <input type="submit" value="Apagar" class="btn btn-danger">
+                    </form>
                   </td>
-
-
+                    
                 </tr>
 
                 <!-- aqui vai a janela modal de edicao -->
@@ -819,13 +829,13 @@ deleção de qualquer entidade do banco de dados.
 
 
       <!-- 
-                    MODAL PARA FORMULÁRIO DE ESCRITORES 
-                -->
+      MODAL PARA FORMULÁRIO DE ESCRITORES 
+      -->
       <div class="modal fade" id="modalEscritores" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
 
           <!--Formulário que será puxado pelo método $_POST e depois tratado
-                        na classe CadastroEscritor.php-->
+          na classe CadastroEscritor.php-->
           <form action="./back-end/reeducando_leitor/CadastroReeducando.php" method="POST">
             <div class="modal-content">
               <div class="modal-header">
@@ -977,7 +987,7 @@ deleção de qualquer entidade do banco de dados.
                 </div>
                 <div class="form-group">
                   <label for="inputSenha">Senha</label>
-                  <input name="senha_usuario" type="name" class="form-control" id="inputSenha" placeholder="senha">
+                  <input name="senha_usuario" type="password" class="form-control" id="inputSenha" placeholder="senha">
                 </div>
                 <div class="form-group">
                   <label for="inputNome">Nível de privilégio</label>

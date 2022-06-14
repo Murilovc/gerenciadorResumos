@@ -17,28 +17,7 @@
       
         <?php include "back-end/menu.php"?>
         
-        <div class="container mt-3">
 
-        <?php 
-       
-        if(!empty($_SESSION['id']) && ($_SESSION['nivel'] == 3) ){
-            echo "Logado como avaliador(a) ".$_SESSION['nome'];
-            
-        }else{
-            $_SESSION['msg'] = "Realize o login para continuar!";
-           header("Location: login.php");
-          
-        }
-        
-        ?>
-        
-        <form>
-            <input type="button" value="Imprimir página" onClick="window.print()"/>
-        </form>
-        
-        
-        
-        </div>
 <br>
         <!-- possíveis: row, col, container-->
         
@@ -69,21 +48,30 @@
             ?>
         <!-- -->
         
-  <iframe src="arquivos/<?php echo $local;?>" width="100%" height="600px"> </iframe>   
-  
-        <div class="container">
-
-            <!-- 
-            Os dois pontos antes do nome são necessários porque o endereço
-            do script em execução atual está "dentro" de visualizador.php, por
-            causa do id que passamos de administrativo.php para cá usando a URL.
-            Por exemplo, supondo que o id passado seja 4, a URL atual seria:
-            http://localhost/gerenciadorResumos/visualizador.php/4
-            -->
-            
+  <iframe src="arquivos/<?php echo $local;?>" width="75%" height="600px"> </iframe>
 
 
-            <form action="back-end/relatorio/CadastroRelatorio.php" method="POST">
+
+
+
+
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebarRight" style="float: right">
+
+<!-- Nav Item - Collapse Menu da Sala de Correção -->
+<div class="container">
+    <li class="nav-item" style="color: white;">
+
+    </li>
+</div>
+<!-- Divider -->
+<hr class="sidebar-divider d-none d-md-block">
+
+<!-- Sidebar Toggler (Sidebar) -->
+<div class="text-center d-none d-md-inline">
+    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+
+
+    <form action="back-end/relatorio/CadastroRelatorio.php" method="POST">
                 
 
 
@@ -153,6 +141,57 @@
 
                 <button type="submit" class="btn btn-primary">Salvar relatório</button>
             </form>
+
+            <div class="container mt-3">
+
+            <?php 
+
+            if(!empty($_SESSION['id']) && ($_SESSION['nivel'] == 3) ){
+                echo "Logado como avaliador(a) ".$_SESSION['nome'];
+                
+            }else{
+                $_SESSION['msg'] = "Realize o login para continuar!";
+            header("Location: login.php");
+            
+            }
+
+            ?>
+
+            <form>
+                <input type="button" value="Imprimir página" onClick="window.print()"/>
+            </form>
+
+
+
+            </div>
+</div>
+
+
+</ul>
+<!-- End of Sidebar -->
+
+
+
+
+
+
+
+
+
+  
+        <div class="container">
+
+            <!-- 
+            Os dois pontos antes do nome são necessários porque o endereço
+            do script em execução atual está "dentro" de visualizador.php, por
+            causa do id que passamos de administrativo.php para cá usando a URL.
+            Por exemplo, supondo que o id passado seja 4, a URL atual seria:
+            http://localhost/gerenciadorResumos/visualizador.php/4
+            -->
+            
+
+
+
         </div>
         
 
